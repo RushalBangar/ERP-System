@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAT Quiz</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="quiz_styles.css">
+</head>
+
+<body>
+    <header class="site-header">
+        <a href="index.html" class="logo-area">
+            <img src="Logo.png" height="50" width="50" alt="MatoshriCATPrep Logo">
+            <b>Matoshri College of Engineering And Research Center</b>
+        </a>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="About.html">CAT</a>
+        </nav>
+    </header>
+
+    <main class="quiz-page-container">
+
+        <div id="start-container" class="animate-up">
+            <h1 class="section-heading" id="quiz-title">CAT Quiz</h1>
+            <p class="subtitle" id="quiz-subtitle">You will take a quiz of 10 random questions.<br>Do not leave the tab,
+                or your quiz will be submitted.</p>
+            <button class="btn-primary" id="start-btn" onclick="startQuiz()">Start Quiz</button>
+        </div>
+
+        <!-- Loading State -->
+        <div class="loading-state" id="loading-state">
+            <div class="spinner"></div>
+            <p>Loading questions...</p>
+        </div>
+
+        <!-- Error State -->
+        <div class="error-state" id="error-state">
+            <h3>⚠️ Failed to Load Questions</h3>
+            <p id="error-message">Could not connect to the database. Please check your internet connection.</p>
+            <button class="retry-button" onclick="startQuiz()">Try Again</button>
+        </div>
+
+        <div class="quiz-container" id="quiz-container">
+            <div id="timer-display">10:00</div>
+            <div id="question-container"></div>
+        </div>
+
+        <div class="score-container" id="score-container">
+            <div class="score-card">
+                <h2 id="score-heading">Your Final Score: <span id="score">0</span> / 10</h2>
+                <p class="subtitle margin-b-lg">You can now safely leave this page or return home.</p>
+                <a href="index.html" class="btn-primary">Back to Home</a>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="site-footer">
+        <p>© 2026 - Created by Rushal Bangar</p>
+    </footer>
+
+    <script src="quiz.js"></script>
+
+    <script>
+
+        // ==================================================
+        // !! THIS IS THE ONLY LINE TO CHANGE PER PAGE !!
+        const subjectKey = 'oop';
+        // ==================================================
+
+
+        // --- Global variables ---
+        let questions = [];
+        let currentQuestion = 0;
+        let score = 0;
+        let timerInterval;
+        let timeRemaining = 600;
+        let quizInProgress = false;
+
+        const startContainer = document.getElementById("start-container");
+        const loadingState = document.getElementById("loading-state");
+        const errorState = document.getElementById("error-state");
+        const quizContainer = document.getElementById("quiz-container");
+        const scoreContainer = document.getElementById("score-container");
+        const questionContainer = document.getElementById("question-container");
+        const timerDisplay = document.getElementById("timer-display");
+
+        // --- Set the page title dynamically ---
+        document.getElementById('quiz-title').textContent = `CAT ${subjectKey.toUpperCase()} Quiz`;
+        document.title = `CAT ${subjectKey.toUpperCase()} Quiz - MatoshriCATPrep`;
+
+        // --- Tab-Switching Detection ---
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden && quizInProgress) {
+                alert("You left the tab. The quiz will be submitted automatically.");
+                showScore();
+            }
+        });
+
+        // --- Timer Functions ---
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timeRemaining--;
+                const minutes = Math.floor(timeRemaining / 60).toString().padStart(2, '0');
+                const seconds = (timeRemaining % 60).toString().padStart(2, '0');
+                timerDisplay.textContent = `${minutes}:${seconds}`;
+                if (timeRemaining <= 0) showScore();
+            }, 1000);
+        }
+
+        // --- Shuffle (Fisher-Yates) ---
+        function shuffle(array) {
+            let i = array.length, j;
+            while (i !== 0) {
+                j = Math.floor(Math.random() * i--);
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // --- startQuiz: now async, fetches from Supabase ---
+        async function startQuiz() {
+            // Show loading, hide start & error
+            startContainer.style.display = "none";
+            errorState.style.display = "none";
+            loadingState.style.display = "flex";
+
+            try {
+                const allQuestions = await fetchQuestions(subjectKey);
+                questions = shuffle([...allQuestions]).slice(0, 10);
+
+                const questionCount = questions.length;
+                document.getElementById('quiz-subtitle').textContent =
+                    `You will take a quiz of ${questionCount} random questions. Do not leave the tab, or your quiz will be submitted.`;
+                document.getElementById('score-heading').innerHTML =
+                    `Your Final Score: <span id="score">0</span> / ${questionCount}`;
+
+                // All good — show quiz
+                loadingState.style.display = "none";
+                quizContainer.style.display = "block";
+                quizInProgress = true;
+                timeRemaining = 600;
+                startTimer();
+                loadQuestion();
+
+            } catch (err) {
+                // Show error state
+                loadingState.style.display = "none";
+                document.getElementById('error-message').textContent = err.message;
+                errorState.style.display = "block";
+            }
+        }
+
+        // --- loadQuestion (no changes) ---
+        function loadQuestion() {
+            const questionData = questions[currentQuestion];
+
+            // Map options to <li> tags, passing the index to checkAnswer
+            let optionsHTML = questionData.options.map((option, index) => {
+                return `<li onclick="checkAnswer(this, ${index})">${option.text}</li>`
+            }).join('');
+
+            questionContainer.innerHTML = `
+                <div class="question">${currentQuestion + 1}. ${questionData.question}</div>
+                <ul class="options" id="options-list">
+                    ${optionsHTML}
+                </ul>
+            `;
+        }
+
+        // --- checkAnswer (no changes) ---
+        function checkAnswer(element, selectedIndex) {
+            const optionsList = document.getElementById("options-list");
+            optionsList.classList.add("disabled"); // Disable all options
+
+            // Get the option object using the index
+            const selectedOption = questions[currentQuestion].options[selectedIndex];
+
+            if (selectedOption.isCorrect) {
+                element.classList.add("correct");
+                score++;
+            } else {
+                element.classList.add("incorrect");
+
+                // Highlight the correct answer
+                const allOptions = optionsList.getElementsByTagName('li');
+                // Find the index of the correct answer
+                const correctIndex = questions[currentQuestion].options.findIndex(opt => opt.isCorrect);
+                if (correctIndex !== -1) {
+                    allOptions[correctIndex].classList.add("correct");
+                }
+            }
+
+            // This will now run correctly
+            setTimeout(() => {
+                currentQuestion++;
+                if (currentQuestion < questions.length) {
+                    loadQuestion();
+                } else {
+                    showScore();
+                }
+            }, 1500);
+        }
+
+        // --- showScore (no changes) ---
+        function showScore() {
+            clearInterval(timerInterval);
+            quizInProgress = false;
+            quizContainer.style.display = "none";
+            scoreContainer.style.display = "block";
+            document.getElementById("score").textContent = score;
+        }
+    </script>
+
+</body>
+
+</html>
