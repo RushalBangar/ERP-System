@@ -14,11 +14,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
-
+    <link rel="icon" type="image/png" href="Logo.png">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+    <div class="bg-orb orb-primary"></div>
+    <div class="bg-orb orb-secondary"></div>
+
     <header class="site-header">
         <a href="index.html" class="logo-area">
             <img src="Logo.png" height="50" width="50" alt="MatoshriCATPrep Logo">
@@ -29,31 +32,141 @@
         </nav>
     </header>
 
-    <main class="page-container grid-2-col">
-        <section class="hero-content animate-up delay-1">
-            <h1 class="text-hero">Welcome to <br><span class="text-accent">MatoshriCATPrep</span></h1>
-            <p class="subtitle margin-b-lg">
-                Boost your CAT exam preparation with access to high-quality study materials,
-                practice tests, and expert guidance.
-            </p>
-            <a href="About.html" class="btn-primary">Learn More</a>
-        </section>
+    <main class="page-container">
+        <!-- Hero Section -->
+        <!-- Hero Section -->
+        <section class="grid-2-col animate-up delay-1">
+            <div class="hero-image">
+                <div class="hero-glow"></div>
+                <img src="Logo.png" alt="MatoshriCATPrep" class="hero-logo-img">
+            </div>
 
-        <section class="subject-nav animate-up delay-2">
-            <h2 class="section-heading">Choose a Subject</h2>
-            <div class="flex-col-gap">
-                <a href="FDS.html" class="glass-card">FDS</a>
-                <a href="OOP.html" class="glass-card">OOP</a>
-                <a href="IOT.html" class="glass-card">IOT</a>
-                <a href="Math.html" class="glass-card">Math-II</a>
+            <div class="hero-content">
+                <div class="badge">🚀 #1 CAT Prep Platform</div>
+                <h1 class="text-hero">Welcome to <br><span class="text-gradient">MatoshriCATPrep</span></h1>
+                <p class="subtitle margin-b-lg">
+                    Boost your CAT exam preparation with access to high-quality study materials,
+                    practice tests, and expert guidance.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#subjects" class="btn-primary">Start Practicing</a>
+                    <a href="#features" class="btn-primary btn-outline">Learn More</a>
+                </div>
             </div>
         </section>
+
+        <!-- Features Section -->
+        <section id="features" class="section-spacing animate-up delay-2">
+            <h2 class="section-heading" style="text-align: center; display: block; margin-bottom: 3rem;">Why Choose Us?
+            </h2>
+            <div class="grid-3-col">
+                <div class="feature-box">
+                    <div class="feature-icon">⏱️</div>
+                    <h3 style="font-size: 1.4rem; color: var(--text-primary);">Timed Challenges</h3>
+                    <p class="subtitle" style="font-size: 0.95rem;">Experience real exam pressure with our 10-minute
+                        randomized quizzes designed to improve your speed and accuracy.</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon">📚</div>
+                    <h3 style="font-size: 1.4rem; color: var(--text-primary);">Core Subjects</h3>
+                    <p class="subtitle" style="font-size: 0.95rem;">Master the essentials with dedicated question banks
+                        for Fundamentals of Data Structures, OOP, IoT, and Mathematics II.</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon">⚡</div>
+                    <h3 style="font-size: 1.4rem; color: var(--text-primary);">Instant Feedback</h3>
+                    <p class="subtitle" style="font-size: 0.95rem;">Get immediate scoring and visual feedback on your
+                        answers so you can learn from your mistakes instantly.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Subject Selection Section -->
+        <section id="subjects" class="section-spacing animate-up delay-3">
+            <div class="grid-2-col">
+                <div>
+                    <h2 class="section-heading">Choose your Subject</h2>
+                    <p class="subtitle margin-b-lg">Select a topic below to begin your 10-question randomized test. Our
+                        database pulls from a pool of 50+ questions per subject to ensure you never take the exact same
+                        test twice.</p>
+                </div>
+                <div class="flex-col-gap" style="margin-top: 0;">
+                    <a href="FDS.html" class="glass-card">Fundamentals of Data Structures (FDS)</a>
+                    <a href="OOP.html" class="glass-card">Object-Oriented Programming (OOP)</a>
+                    <a href="IOT.html" class="glass-card">Internet of Things (IoT)</a>
+                    <a href="Math.html" class="glass-card">Mathematics II</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Snippet -->
+        <section class="section-spacing animate-up"
+            style="text-align: center; max-width: 800px; margin-left: auto; margin-right: auto;">
+            <h2 class="section-heading" style="display: block; margin-bottom: 2rem;">Built for B.Tech Students</h2>
+            <p class="subtitle" style="font-size: 1.2rem; line-height: 1.8;">
+                MatoshriCATPrep was uniquely designed by Rushal Bangar, an AI & Data Science student at Matoshri College
+                of Engineering. This platform is tailored specifically to help first-year engineering students ace their
+                Continuous Assessment Tests with confidence.
+            </p>
+            <a href="About.html"
+                style="color: var(--accent-cyan); text-decoration: none; font-weight: 600; font-size: 1.1rem; display: inline-block; margin-top: 1.5rem;">Read
+                the full story →</a>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section animate-up">
+            <h2 style="font-size: 3rem; margin-bottom: 1rem; color: var(--text-primary);">Ready to ace your exams?</h2>
+            <p class="subtitle" style="margin-bottom: 2.5rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                Join hundreds of students currently sharpening their skills on our platform.</p>
+            <a href="#subjects" class="btn-primary" style="font-size: 1.2rem; padding: 16px 48px;">Start Practicing
+                Now</a>
+        </section>
+
     </main>
 
     <footer class="site-footer">
-        <p>© 2026 - Created by Rushal Bangar</p>
-    </footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <a href="index.html" class="footer-logo">
+                    <img src="Logo.png" height="40" width="40" alt="MatoshriCATPrep Logo">
+                    <span>MatoshriCATPrep</span>
+                </a>
+                <p>Empowering B.Tech students to excel in their Continuous Assessment Tests with high-quality, timed
+                    practice sessions.</p>
+            </div>
 
+            <div class="footer-section">
+                <h4 class="footer-heading">Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="About.html">About Us</a></li>
+                    <li><a href="#features">Features</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4 class="footer-heading">Subjects</h4>
+                <ul class="footer-links">
+                    <li><a href="FDS.html">Data Structures</a></li>
+                    <li><a href="OOP.html">OOPs</a></li>
+                    <li><a href="IOT.html">IoT</a></li>
+                    <li><a href="Math.html">Math II</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4 class="footer-heading">Connect</h4>
+                <ul class="footer-links">
+                    <li><a href="mailto:rushalbangar19@gmail.com">Contact Us</a></li>
+                    <li><a href="https://github.com/RushalBangar" target="_blank">GitHub</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 - Created by Rushal Bangar | Matoshri College of Engineering And Research Center</p>
+        </div>
+    </footer>
+    <script src="galaxy.js"></script>
 </body>
 
 </html>

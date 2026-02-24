@@ -14,11 +14,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
-
+    <link rel="icon" type="image/png" href="Logo.png">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+    <div class="bg-orb orb-primary"></div>
+    <div class="bg-orb orb-secondary"></div>
+
     <header class="site-header">
         <a href="index.html" class="logo-area">
             <img src="Logo.png" height="50" width="50" alt="MatoshriCATPrep Logo">
@@ -30,70 +33,115 @@
     </header>
 
     <main class="about-container">
-        <h1 class="section-heading animate-up">About Our Platform</h1>
-        <p class="subtitle animate-up delay-1">
+        <h1 class="section-heading animate-up"><span class="text-gradient">About</span> Our Platform</h1>
+        <p class="subtitle animate-up delay-1" style="max-width: 700px; margin: 0 auto; margin-bottom: 4rem;">
             A dedicated platform designed to help first-year B.Tech students excel in the Continuous Assessment Test
             (CAT).
         </p>
 
-        <div class="features-list">
-            <div class="feature-card animate-up delay-2">
-                <h3>Subject-Specific Quizzes 📚</h3>
-                <p>Features a robust database of 50+ MCQs for core subjects: Applied Physics & Chemistry, Mathematics,
-                    Software Engineering, and Problem Solving & Programming.</p>
+        <div class="features-grid">
+            <div class="feature-box animate-up delay-1">
+                <div class="feature-icon">📚</div>
+                <h3>Subject-Specific Quizzes</h3>
+                <p class="subtitle" style="font-size: 0.95rem;">Features a robust database of 50+ MCQs for core
+                    subjects: OOP, IoT, FDS, and Mathematics.</p>
             </div>
 
-            <div class="feature-card animate-up delay-2">
-                <h3>Timed Challenges ⏰</h3>
-                <p>Each quiz is timed, helping you sharpen critical thinking, improve response time, and perform under
-                    pressure.</p>
+            <div class="feature-box animate-up delay-2">
+                <div class="feature-icon">⏰</div>
+                <h3>Timed Challenges</h3>
+                <p class="subtitle" style="font-size: 0.95rem;">Each quiz is timed, helping you sharpen critical
+                    thinking, improve response time, and perform under pressure.</p>
             </div>
 
-            <div class="feature-card animate-up delay-2">
-                <h3>Dynamic Question Bank 🚀</h3>
-                <p>Quizzes pull 10 random questions from the extensive database, providing a new challenge every time
-                    you practice.</p>
+            <div class="feature-box animate-up delay-2">
+                <div class="feature-icon">🚀</div>
+                <h3>Dynamic Question Bank</h3>
+                <p class="subtitle" style="font-size: 0.95rem;">Quizzes pull 10 random questions from the extensive
+                    database, providing a new challenge every time.</p>
             </div>
 
-            <div class="feature-card animate-up delay-3">
-                <h3>Instant Feedback 🎉</h3>
-                <p>Receive immediate results upon completion to track your scores, review your answers, and learn from
-                    your mistakes.</p>
+            <div class="feature-box animate-up delay-3">
+                <div class="feature-icon">🎉</div>
+                <h3>Instant Feedback</h3>
+                <p class="subtitle" style="font-size: 0.95rem;">Receive immediate results upon completion to track your
+                    scores and learn from your mistakes securely.</p>
             </div>
 
-            <div class="feature-card animate-up delay-3">
-                <h3>Student-Focused 👥</h3>
-                <p>This platform is built for students. Share tips, discuss concepts, and challenge your friends to a
-                    fun learning experience!</p>
+            <div class="feature-box animate-up delay-3">
+                <div class="feature-icon">👥</div>
+                <h3>Student-Focused</h3>
+                <p class="subtitle" style="font-size: 0.95rem;">This platform is built for students, by a student. Share
+                    tips, discuss concepts, and challenge friends!</p>
             </div>
         </div>
 
-        <p class="closing-statement animate-up delay-3">
-            Knowledge is power, and practice is the key to success. Start your learning adventure today.
+        <p class="subtitle animate-up delay-3" style="font-size: 1.2rem; margin: 4rem auto; font-style: italic;">
+            "Knowledge is power, and practice is the key to success. Start your learning adventure today."
         </p>
 
-        <h2 class="section-heading animate-up" style="margin-top: 5rem;">About the Creator</h2>
+        <h2 class="section-heading animate-up" style="margin-top: 5rem;">Meet the Creator</h2>
 
         <div class="creator-card animate-up delay-3">
             <h3>Bangar Rushal Anna</h3>
-            <p class="creator-subtitle">B.Tech Student in Artificial Intelligence & Data Science
-                <br>Matoshri College of Engineering, Nashik
+            <p class="creator-subtitle">
+                B.Tech Student in Artificial Intelligence & Data Science<br>
+                Matoshri College of Engineering, Nashik
             </p>
             <div class="contact-links">
-                <a href="mailto:rushalbangar19@gmail.com" class="btn-primary" style="padding: 10px 25px;">Email</a>
+                <a href="mailto:rushalbangar19@gmail.com" class="btn-primary"
+                    style="padding: 10px 24px; font-size: 0.95rem;">Email</a>
                 <a href="https://github.com/RushalBangar" target="_blank" class="btn-primary"
-                    style="padding: 10px 25px;">GitHub</a>
+                    style="padding: 10px 24px; font-size: 0.95rem;">GitHub</a>
                 <a href="https://linkedin.com/in/RushalBangar" target="_blank" class="btn-primary"
-                    style="padding: 10px 25px;">LinkedIn</a>
+                    style="padding: 10px 24px; font-size: 0.95rem;">LinkedIn</a>
             </div>
         </div>
-
     </main>
 
     <footer class="site-footer">
-        <p>© 2026 - Created by Rushal Bangar</p>
-    </footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <a href="index.html" class="footer-logo">
+                    <img src="Logo.png" height="40" width="40" alt="MatoshriCATPrep Logo">
+                    <span>MatoshriCATPrep</span>
+                </a>
+                <p>Empowering B.Tech students to excel in their Continuous Assessment Tests with high-quality, timed
+                    practice sessions.</p>
+            </div>
 
+            <div class="footer-section">
+                <h4 class="footer-heading">Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="About.html">About Us</a></li>
+                    <li><a href="index.html#features">Features</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4 class="footer-heading">Subjects</h4>
+                <ul class="footer-links">
+                    <li><a href="FDS.html">Data Structures</a></li>
+                    <li><a href="OOP.html">OOPs</a></li>
+                    <li><a href="IOT.html">IoT</a></li>
+                    <li><a href="Math.html">Math II</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4 class="footer-heading">Connect</h4>
+                <ul class="footer-links">
+                    <li><a href="mailto:rushalbangar19@gmail.com">Contact Us</a></li>
+                    <li><a href="https://github.com/RushalBangar" target="_blank">GitHub</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 - Created by Rushal Bangar | Matoshri College of Engineering And Research Center</p>
+        </div>
+    </footer>
+    <script src="galaxy.js"></script>
 </body>
 
 </html>

@@ -10,12 +10,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
-
+    <link rel="icon" type="image/png" href="Logo.png">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="quiz_styles.css">
 </head>
 
 <body>
+    <div class="bg-orb orb-primary"></div>
+    <div class="bg-orb orb-secondary"></div>
+
     <header class="site-header">
         <a href="index.html" class="logo-area">
             <img src="Logo.png" height="50" width="50" alt="MatoshriCATPrep Logo">
@@ -29,43 +32,108 @@
 
     <main class="quiz-page-container">
 
-        <div id="start-container" class="animate-up">
-            <h1 class="section-heading" id="quiz-title">CAT Quiz</h1>
-            <p class="subtitle" id="quiz-subtitle">You will take a quiz of 10 random questions.<br>Do not leave the tab,
-                or your quiz will be submitted.</p>
-            <button class="btn-primary" id="start-btn" onclick="startQuiz()">Start Quiz</button>
-        </div>
+        <div class="glass-card">
 
-        <!-- Loading State -->
-        <div class="loading-state" id="loading-state">
-            <div class="spinner"></div>
-            <p>Loading questions...</p>
-        </div>
+            <div id="start-container" class="animate-up">
+                <h1 class="section-heading" id="quiz-title" style="margin-bottom: 1.5rem;">
+                    <span class="text-gradient">CAT IoT Quiz</span>
+                </h1>
 
-        <!-- Error State -->
-        <div class="error-state" id="error-state">
-            <h3>⚠️ Failed to Load Questions</h3>
-            <p id="error-message">Could not connect to the database. Please check your internet connection.</p>
-            <button class="retry-button" onclick="startQuiz()">Try Again</button>
-        </div>
+                <p class="subtitle" id="quiz-subtitle" style="color: #ffffff; margin-bottom: 2rem;">
+                    You will take a quiz of 10 random questions.<br>
+                    Do not leave the tab, or your quiz will be submitted.
+                </p>
 
-        <div class="quiz-container" id="quiz-container">
-            <div id="timer-display">10:00</div>
-            <div id="question-container"></div>
-        </div>
-
-        <div class="score-container" id="score-container">
-            <div class="score-card">
-                <h2 id="score-heading">Your Final Score: <span id="score">0</span> / 10</h2>
-                <p class="subtitle margin-b-lg">You can now safely leave this page or return home.</p>
-                <a href="index.html" class="btn-primary">Back to Home</a>
+                <button class="neon-pill-btn" id="start-btn" onclick="startQuiz()">Start Quiz</button>
             </div>
+
+            <!-- Neon Timer Box -->
+            <div id="timer-display" class="neon-timer">10:00</div>
+
+            <!-- Loading State -->
+            <div class="loading-state" id="loading-state" style="display: none;">
+                <div class="spinner"></div>
+                <p>Loading questions...</p>
+            </div>
+
+            <!-- Error State -->
+            <div class="error-state" id="error-state" style="display: none;">
+                <h3>⚠️ Failed to Load Questions</h3>
+                <p id="error-message">Could not connect to the database. Please check your internet connection.</p>
+                <button class="retry-button" onclick="startQuiz()">Try Again</button>
+            </div>
+
+            <!-- Quiz Questions Area -->
+            <div class="quiz-container" id="quiz-container" style="display: none;">
+                <div class="progress-container">
+                    <div id="progress-bar" class="progress-bar"></div>
+                </div>
+                <p id="progress-text" class="progress-text">Question 1 of 10</p>
+                <div id="question-container"></div>
+                <button id="next-btn" class="neon-pill-btn next-btn" style="display: none;"
+                    onclick="nextQuestion()">Next Question</button>
+            </div>
+
+            <!-- Final Score Area -->
+            <div class="score-container" id="score-container" style="display: none;">
+                <div class="score-card">
+                    <h2 id="score-heading">Your Final Score: <span id="score">0</span> / 10</h2>
+                    <p class="subtitle margin-b-lg">You can now safely leave this page or return home.</p>
+                    <a href="index.html" class="btn-primary">Back to Home</a>
+
+                    <!-- Post-Quiz Review -->
+                    <div id="review-section" class="review-section" style="display: none;">
+                        <h3>Quiz Review</h3>
+                        <div id="review-list" class="review-list"></div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
     </main>
 
     <footer class="site-footer">
-        <p>© 2026 - Created by Rushal Bangar</p>
+        <div class="footer-content">
+            <div class="footer-section">
+                <a href="index.html" class="footer-logo">
+                    <img src="Logo.png" height="40" width="40" alt="MatoshriCATPrep Logo">
+                    <span>MatoshriCATPrep</span>
+                </a>
+                <p>Empowering B.Tech students to excel in their Continuous Assessment Tests with high-quality, timed
+                    practice sessions.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4 class="footer-heading">Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="About.html">About Us</a></li>
+                    <li><a href="index.html#features">Features</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4 class="footer-heading">Subjects</h4>
+                <ul class="footer-links">
+                    <li><a href="FDS.html">Data Structures</a></li>
+                    <li><a href="OOP.html">OOPs</a></li>
+                    <li><a href="IOT.html">IoT</a></li>
+                    <li><a href="Math.html">Math II</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4 class="footer-heading">Connect</h4>
+                <ul class="footer-links">
+                    <li><a href="mailto:rushalbangar19@gmail.com">Contact Us</a></li>
+                    <li><a href="https://github.com/RushalBangar" target="_blank">GitHub</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 - Created by Rushal Bangar | Matoshri College of Engineering And Research Center</p>
+        </div>
     </footer>
 
     <script src="quiz.js"></script>
@@ -92,8 +160,11 @@
         const scoreContainer = document.getElementById("score-container");
         const questionContainer = document.getElementById("question-container");
         const timerDisplay = document.getElementById("timer-display");
+        const nextBtn = document.getElementById("next-btn");
+        const progressBar = document.getElementById("progress-bar");
+        const progressText = document.getElementById("progress-text");
 
-        document.getElementById('quiz-title').textContent = `CAT ${subjectKey.toUpperCase()} Quiz`;
+        document.getElementById('quiz-title').innerHTML = `<span class="text-gradient">CAT ${subjectKey.toUpperCase()} Quiz</span>`;
         document.title = `CAT ${subjectKey.toUpperCase()} Quiz - MatoshriCATPrep`;
 
         document.addEventListener("visibilitychange", () => {
@@ -151,9 +222,16 @@
             }
         }
 
-        // --- loadQuestion (no changes) ---
+        // --- loadQuestion ---
         function loadQuestion() {
             const questionData = questions[currentQuestion];
+
+            // Update Progress Bar
+            progressBar.style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
+            progressText.textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+
+            // Hide the next button on new question load
+            nextBtn.style.display = "none";
 
             // Map options to <li> tags, passing the index to checkAnswer
             let optionsHTML = questionData.options.map((option, index) => {
@@ -168,50 +246,106 @@
             `;
         }
 
-        // --- checkAnswer (no changes) ---
-        function checkAnswer(element, selectedIndex) {
+        // --- checkAnswer ---
+        async function checkAnswer(element, selectedIndex) {
             const optionsList = document.getElementById("options-list");
+            if (optionsList.classList.contains("disabled")) return; // Prevent double clicks
             optionsList.classList.add("disabled"); // Disable all options
 
-            // Get the option object using the index
-            const selectedOption = questions[currentQuestion].options[selectedIndex];
+            const questionId = questions[currentQuestion].id;
 
-            if (selectedOption.isCorrect) {
-                element.classList.add("correct");
-                score++;
-            } else {
-                element.classList.add("incorrect");
+            // Add a temporary loading state to the clicked option
+            element.innerHTML += ' <span class="spinner" style="width: 15px; height: 15px; border-width: 2px;"></span>';
 
-                // Highlight the correct answer
-                const allOptions = optionsList.getElementsByTagName('li');
-                // Find the index of the correct answer
-                const correctIndex = questions[currentQuestion].options.findIndex(opt => opt.isCorrect);
-                if (correctIndex !== -1) {
-                    allOptions[correctIndex].classList.add("correct");
-                }
-            }
+            try {
+                // Verify answer with the backend
+                const result = await verifyAnswer(questionId, selectedIndex);
 
-            // This will now run correctly
-            setTimeout(() => {
-                currentQuestion++;
-                if (currentQuestion < questions.length) {
-                    loadQuestion();
+                // Remove spinner
+                element.querySelector('.spinner').remove();
+
+                // Record answers for review later
+                questions[currentQuestion].userChoice = selectedIndex;
+                questions[currentQuestion].isCorrect = result.isCorrect;
+                questions[currentQuestion].correctChoice = result.correctIndex;
+
+                if (result.isCorrect) {
+                    element.classList.add("correct");
+                    score++;
                 } else {
-                    showScore();
+                    element.classList.add("incorrect");
+
+                    // Highlight the correct answer returned by the backend
+                    const allOptions = optionsList.getElementsByTagName('li');
+                    if (result.correctIndex !== undefined && result.correctIndex !== null) {
+                        allOptions[result.correctIndex].classList.add("correct");
+                    }
                 }
-            }, 1500);
+
+                // Show the next button instead of auto-advancing
+                nextBtn.style.display = "block";
+
+            } catch (err) {
+                console.error(err);
+                alert("Failed to verify answer. Please check your connection.");
+                optionsList.classList.remove("disabled");
+                element.querySelector('.spinner')?.remove();
+            }
         }
 
-        // --- showScore (no changes) ---
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                loadQuestion();
+            } else {
+                showScore();
+            }
+        }
+
+        // --- showScore ---
         function showScore() {
             clearInterval(timerInterval);
             quizInProgress = false;
             quizContainer.style.display = "none";
+            document.getElementById("timer-display").style.display = "none";
             scoreContainer.style.display = "block";
             document.getElementById("score").textContent = score;
+
+            buildReviewSection();
+        }
+
+        function buildReviewSection() {
+            const reviewSection = document.getElementById("review-section");
+            const reviewList = document.getElementById("review-list");
+
+            reviewSection.style.display = "block";
+            let reviewHTML = "";
+
+            questions.forEach((q, index) => {
+                const isCorrect = q.isCorrect;
+                const statusClass = isCorrect ? "correct" : "incorrect";
+
+                // Construct safe strings for rendering
+                const userOptionText = q.userChoice !== undefined ? q.options[q.userChoice]?.text : "Did not answer";
+                const correctOptionText = q.correctChoice !== undefined ? q.options[q.correctChoice]?.text : "Unknown API State";
+
+                let answerHTML = `<div class="review-answer your-answer"><span>Your Answer:</span> ${userOptionText}</div>`;
+                if (!isCorrect) {
+                    answerHTML += `<div class="review-answer correct-answer"><span>Correct Answer:</span> ${correctOptionText}</div>`;
+                }
+
+                reviewHTML += `
+                    <div class="review-item ${statusClass}">
+                        <div class="review-question">${index + 1}. ${q.question}</div>
+                        ${answerHTML}
+                    </div>
+                `;
+            });
+
+            reviewList.innerHTML = reviewHTML;
         }
     </script>
-
+    <script src="galaxy.js"></script>
 </body>
 
 </html>
