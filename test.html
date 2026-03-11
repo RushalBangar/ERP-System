@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Supabase Connection</title>
+</head>
+<body>
+    <h1>Testing Supabase Connection</h1>
+    <div id="result"></div>
+
+    <script type="module">
+        import { supabase } from './db-config.js';
+
+        const resultDiv = document.getElementById('result');
+
+        async function testConnection() {
+            try {
+                resultDiv.innerHTML = 'Testing connection...';
+
+                // Test basic query
+                const { data, error } = await supabase
+                    .from('students')
+                    .select('*')
+                    .limit(1);
+
+                if (error) {
+                    resultDiv.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+                    console.error('Supabase error:', error);
+                    return;
+                }
+
+                resultDiv.innerHTML = `<p style="color: green;">Connection successful!</p>
+                                      <p>Found ${data.length} student(s) in database</p>
+                                      <pre>${JSON.stringify(data, null, 2)}</pre>`;
+
+            } catch (err) {
+                resultDiv.innerHTML = `<p style="color: red;">Test failed: ${err.message}</p>`;
+                console.error('Test error:', err);
+            }
+        }
+
+        testConnection();
+    </script>
+</body>
+</html>

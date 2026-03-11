@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | Matoshri ERP</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg-color:#F3F4F6; --sidebar-bg:#FFFFFF; --card-bg:#FFFFFF; --text-primary:#111827; --text-secondary:#6B7280; --accent-color:#2563EB; --border-color:#E5E7EB; }
+        .dark-mode { --bg-color:#111827; --sidebar-bg:#1F2937; --card-bg:#1F2937; --text-primary:#F9FAFB; --text-secondary:#9CA3AF; --border-color:#374151; }
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Inter',sans-serif; transition:0.3s; }
+        body { background:var(--bg-color); color:var(--text-primary); display:flex; height:100vh; overflow:hidden; }
+        
+        .sidebar { width:260px; background:var(--sidebar-bg); border-right:1px solid var(--border-color); display:flex; flex-direction:column; padding:24px; }
+        .menu-item { display:flex; align-items:center; padding:14px 16px; margin-bottom:8px; border-radius:12px; color:var(--text-secondary); text-decoration:none; font-weight:500; }
+        .menu-item:hover { background:var(--bg-color); color:var(--accent-color); }
+        .main-content { flex:1; overflow-y:auto; padding:32px; padding-bottom:80px; }
+        
+        .profile-header { background:var(--card-bg); border-radius:16px; padding:32px; border:1px solid var(--border-color); display:flex; align-items:center; gap:24px; margin-bottom:24px; }
+        .avatar { width:80px; height:80px; border-radius:50%; background:var(--accent-color); color:#fff; display:flex; align-items:center; justify-content:center; font-size:2rem; font-weight:700; }
+        
+        .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; background:var(--card-bg); padding:32px; border-radius:16px; border:1px solid var(--border-color); }
+        .form-group label { display:block; font-size:0.85rem; font-weight:600; margin-bottom:8px; color:var(--text-secondary); }
+        .form-group input { width:100%; padding:12px; border-radius:8px; border:1px solid var(--border-color); background:var(--bg-color); color:var(--text-primary); outline:none; }
+        
+        @media(max-width:768px){ .sidebar{display:none;} .main-content{padding:20px;} .form-grid{grid-template-columns:1fr;} }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo" style="font-size:1.25rem; font-weight:800; margin-bottom:40px; color:#EF4444;">🎓 Matoshri ERP</div>
+        <a href="dashboard.html" class="menu-item">🏠 <span>Dashboard</span></a>
+        <a href="academics.html" class="menu-item">📚 <span>Academics</span></a>
+        <a href="attendance.html" class="menu-item">📅 <span>Attendance</span></a>
+        <a href="examination.html" class="menu-item">📝 <span>Examination</span></a>
+        <a href="accounts.html" class="menu-item">💰 <span>Fees</span></a>
+        <div style="margin-top:auto;"><a href="index.html" class="menu-item" style="color:#EF4444;">🚪 <span>Logout</span></a></div>
+    </div>
+
+    <div class="main-content">
+        <a href="dashboard.html" style="text-decoration:none; color:var(--text-secondary);">← Back</a>
+        
+        <div class="profile-header">
+            <div class="avatar" id="p-initials">--</div>
+            <div>
+                <h1 id="p-name">Loading...</h1>
+                <p id="p-branch" style="color:var(--text-secondary);">...</p>
+            </div>
+        </div>
+
+        <div class="form-grid">
+            <div class="form-group"><label>Full Name</label><input type="text" id="in-name" readonly></div>
+            <div class="form-group"><label>PRN Number</label><input type="text" id="in-prn" readonly></div>
+            <div class="form-group"><label>Email</label><input type="text" id="in-email"></div>
+            <div class="form-group"><label>Phone</label><input type="text" id="in-phone"></div>
+            <div class="form-group"><label>Address</label><input type="text" id="in-address"></div>
+        </div>
+    </div>
+
+    <script>
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+        }
+        window.onload = function() {
+            const userJson = localStorage.getItem("user_data");
+            if (!userJson) return;
+            const user = JSON.parse(userJson);
+
+            // Update Header
+            document.getElementById('p-name').innerText = user.full_name;
+            document.getElementById('p-branch').innerText = user.branch + " • " + user.year;
+            document.getElementById('p-initials').innerText = user.full_name.match(/\b(\w)/g).join('').substring(0,2);
+
+            // Update Inputs
+            document.getElementById('in-name').value = user.full_name;
+            document.getElementById('in-prn').value = user.prn_number;
+            document.getElementById('in-email').value = user.email || "";
+            document.getElementById('in-phone').value = user.phone || "";
+            document.getElementById('in-address').value = user.address || "";
+        }
+    </script>
+</body>
+</html>

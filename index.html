@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matoshri ERP - Secure Login</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- CSS VARIABLES --- */
+        :root {
+            --card-bg: rgba(255, 255, 255, 0.90);
+            --text-primary: #111827;
+            --text-secondary: #4B5563;
+            --accent-color: #EF4444; 
+            --accent-hover: #DC2626;
+            --border-color: #D1D5DB;
+            --input-bg: #FFFFFF;
+            --overlay-color: rgba(255, 255, 255, 0.3);
+            --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .dark-mode {
+            --card-bg: rgba(31, 41, 55, 0.95);
+            --text-primary: #F9FAFB;
+            --text-secondary: #9CA3AF;
+            --accent-color: #F87171; 
+            --accent-hover: #EF4444;
+            --border-color: #374151;
+            --input-bg: #111827;
+            --overlay-color: rgba(0, 0, 0, 0.75);
+            --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; transition: all 0.3s ease; }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-right: 10%;
+        }
+
+        /* --- BACKGROUND --- */
+        .bg-image {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('background.jpeg'); 
+            background-size: cover; background-position: center; z-index: -2;
+            transition: transform 1.5s ease;
+        }
+
+        .bg-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--overlay-color); backdrop-filter: blur(4px); 
+            z-index: -1; transition: all 1s ease;
+        }
+
+        /* Animation Classes */
+        .bg-overlay.clear-view { backdrop-filter: blur(0px); background-color: rgba(0,0,0,0); }
+        .bg-image.zoom-in { transform: scale(1.1); }
+        
+        .login-card.entering-college {
+            animation: enterDoor 1.2s forwards cubic-bezier(0.6, -0.28, 0.735, 0.045);
+            pointer-events: none;
+        }
+
+        @keyframes enterDoor {
+            0% { opacity: 1; transform: scale(1) translateX(0); }
+            40% { transform: scale(1.05); }
+            100% { opacity: 0; transform: scale(0.05) translate(calc(-50vw + 50%), 200px); }
+        }
+
+        /* --- UI ELEMENTS --- */
+        .navbar {
+            position: absolute; top: 0; left: 0; width: 100%; padding: 24px 40px;
+            display: flex; justify-content: space-between; align-items: center; z-index: 10;
+        }
+
+        .brand { font-weight: 800; font-size: 1.5rem; color: var(--text-primary); text-shadow: 0 2px 4px rgba(255,255,255,0.5); }
+        .dark-mode .brand { text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+
+        .theme-toggle {
+            background: var(--card-bg); border: 1px solid var(--border-color);
+            cursor: pointer; font-size: 1.2rem; padding: 8px 12px; border-radius: 50px;
+        }
+
+        .login-card {
+            background-color: var(--card-bg); padding: 48px; border-radius: 24px;
+            box-shadow: var(--shadow); width: 100%; max-width: 440px;
+            border: 1px solid var(--border-color); backdrop-filter: blur(10px);
+            animation: slideIn 0.8s ease-out;
+        }
+        @keyframes slideIn { from { transform: translateX(50px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+        .login-header h2 { font-size: 28px; font-weight: 700; margin-bottom: 8px; color: var(--text-primary); }
+        .login-header p { color: var(--text-secondary); font-size: 14px; margin-bottom: 24px; }
+
+        .tab-container { display: flex; gap: 12px; margin-bottom: 24px; background: var(--input-bg); padding: 6px; border-radius: 12px; border: 1px solid var(--border-color); }
+        .tab-btn { flex: 1; padding: 10px; border: none; background: transparent; color: var(--text-secondary); font-weight: 600; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+        .tab-btn.active { background: var(--card-bg); color: var(--text-primary); box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .hidden { display: none !important; }
+
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: var(--text-primary); }
+        
+        .input-wrapper { position: relative; }
+        .form-group input {
+            width: 100%; padding: 14px 16px; padding-right: 45px; border-radius: 12px;
+            border: 1px solid var(--border-color); background-color: var(--input-bg);
+            color: var(--text-primary); font-size: 15px; outline: none;
+        }
+        .form-group input:focus { border-color: var(--accent-color); box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.15); }
+        
+        .toggle-password { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); cursor: pointer; background: none; border: none; font-size: 1.1rem; color: var(--text-secondary); }
+
+        .btn-primary {
+            width: 100%; padding: 16px; background-color: var(--accent-color); color: white;
+            border: none; border-radius: 12px; font-weight: 600; font-size: 16px; cursor: pointer;
+            margin-top: 12px; transition: transform 0.1s ease;
+        }
+        .btn-primary:active { transform: scale(0.98); }
+        .btn-primary:hover { background-color: var(--accent-hover); }
+
+        .footer-links { margin-top: 24px; text-align: center; font-size: 14px; }
+        .footer-links a { color: var(--text-secondary); text-decoration: none; }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            body { justify-content: center; padding-right: 0; padding: 20px; }
+            @keyframes enterDoor { to { opacity: 0; transform: scale(0.5) translateY(100px); } }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-image" id="bg-image"></div>
+    <div class="bg-overlay" id="bg-overlay"></div>
+
+    <div class="navbar" id="navbar">
+        <div class="brand">Matoshri ERP</div>
+        <button class="theme-toggle" id="theme-btn">🌙</button>
+    </div>
+
+    <div class="login-card" id="login-card">
+        <div class="login-header">
+            <h2>Student Portal</h2>
+            <p>Access or create your ERP account.</p>
+        </div>
+
+        <div class="tab-container">
+            <button class="tab-btn active" id="tab-login">Sign In</button>
+            <button class="tab-btn" id="tab-register">Register</button>
+        </div>
+
+        <form id="login-form">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <div class="input-wrapper">
+                    <input type="email" id="email" placeholder="e.g. rushalbangar19@gmail.com" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="prn">PRN Number (Password)</label>
+                <div class="input-wrapper">
+                    <input type="password" id="prn" placeholder="e.g. 25EN02U009F" required>
+                    <button type="button" class="toggle-password" id="eye-btn">👁️</button>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-primary" id="login-btn">Sign In</button>
+
+            <div class="footer-links">
+                <a href="#">Forgot PRN?</a>
+            </div>
+        </form>
+
+        <form id="register-form" class="hidden">
+            <div class="form-group">
+                <label for="reg-name">Full Name</label>
+                <div class="input-wrapper">
+                    <input type="text" id="reg-name" placeholder="e.g. Rushal Bangar" required>
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 12px; margin-bottom: 20px;">
+                <div style="flex: 1;">
+                    <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: var(--text-primary);">Branch</label>
+                    <select id="reg-branch" required style="width: 100%; padding: 14px 16px; border-radius: 12px; border: 1px solid var(--border-color); background-color: var(--input-bg); color: var(--text-primary); font-size: 15px; outline: none; appearance: none; cursor: pointer;">
+                        <option value="" disabled selected>Select Branch</option>
+                        <option value="Computer Engineering">Computer Engineering</option>
+                        <option value="Mechanical Engineering">Mechanical Engineering</option>
+                        <option value="Civil Engineering">Civil Engineering</option>
+                        <option value="Electrical Engineering">Electrical Engineering</option>
+                        <option value="IT Engineering">IT Engineering</option>
+                    </select>
+                </div>
+                <div style="flex: 1;">
+                    <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: var(--text-primary);">Year</label>
+                    <select id="reg-year" required style="width: 100%; padding: 14px 16px; border-radius: 12px; border: 1px solid var(--border-color); background-color: var(--input-bg); color: var(--text-primary); font-size: 15px; outline: none; appearance: none; cursor: pointer;">
+                        <option value="" disabled selected>Select Year</option>
+                        <option value="1st Year">1st Year</option>
+                        <option value="2nd Year">2nd Year</option>
+                        <option value="3rd Year">3rd Year</option>
+                        <option value="4th Year">4th Year</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="reg-email">Email Address</label>
+                <div class="input-wrapper">
+                    <input type="email" id="reg-email" placeholder="e.g. student@example.com" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="reg-prn">PRN Number (Acts as Password)</label>
+                <div class="input-wrapper">
+                    <input type="password" id="reg-prn" placeholder="e.g. 25EN02U010F" required>
+                    <button type="button" class="toggle-password" id="reg-eye-btn">👁️</button>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-primary" id="register-btn">Create Account</button>
+        </form>
+    </div>
+
+    <script>
+        // --- 1. DARK MODE TOGGLE (WITH PERSISTENCE) ---
+        const themeBtn = document.getElementById('theme-btn');
+        
+        // Initialize Theme from localStorage
+        const isDarkMode = localStorage.getItem('darkMode') === 'true';
+        if (isDarkMode) {
+            document.body.classList.add('dark-mode');
+            themeBtn.innerHTML = "☀️";
+        }
+
+        themeBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            themeBtn.innerHTML = isDark ? "☀️" : "🌙";
+            localStorage.setItem('darkMode', isDark);
+        });
+
+        // --- 2. PASSWORD EYE TOGGLE (FIXED) ---
+        const eyeBtn = document.getElementById('eye-btn');
+        const passInput = document.getElementById('prn');
+        eyeBtn.addEventListener('click', () => {
+            if (passInput.type === 'password') {
+                passInput.type = 'text';
+                eyeBtn.innerHTML = "🔒";
+            } else {
+                passInput.type = 'password';
+                eyeBtn.innerHTML = "👁️";
+            }
+        });
+
+        // --- 3. TAB SWITCHING LOGIC ---
+        const tabLogin = document.getElementById('tab-login');
+        const tabRegister = document.getElementById('tab-register');
+        const loginFormEl = document.getElementById('login-form');
+        const registerFormEl = document.getElementById('register-form');
+
+        tabLogin.addEventListener('click', () => {
+            tabLogin.classList.add('active');
+            tabRegister.classList.remove('active');
+            loginFormEl.classList.remove('hidden');
+            registerFormEl.classList.add('hidden');
+        });
+
+        tabRegister.addEventListener('click', () => {
+            tabRegister.classList.add('active');
+            tabLogin.classList.remove('active');
+            registerFormEl.classList.remove('hidden');
+            loginFormEl.classList.add('hidden');
+        });
+
+        // --- 4. REGISTER PASSWORD EYE TOGGLE ---
+        const regEyeBtn = document.getElementById('reg-eye-btn');
+        const regPassInput = document.getElementById('reg-prn');
+        regEyeBtn.addEventListener('click', () => {
+            if (regPassInput.type === 'password') {
+                regPassInput.type = 'text';
+                regEyeBtn.innerHTML = "🔒";
+            } else {
+                regPassInput.type = 'password';
+                regEyeBtn.innerHTML = "👁️";
+            }
+        });
+    </script>
+
+    <script type="module">
+        import { supabase } from './db-config.js';
+
+        // --- 3. LOGIN LOGIC (FIXED) ---
+        const loginForm = document.getElementById('login-form');
+        const loginBtn = document.getElementById('login-btn');
+        const card = document.getElementById('login-card');
+        const overlay = document.getElementById('bg-overlay');
+        const bgImage = document.getElementById('bg-image');
+        const navbar = document.getElementById('navbar');
+
+        // Clear previous sessions when loading the login page
+        localStorage.removeItem('user_data');
+        // If there's an active supabase session, sign out
+        supabase.auth.signOut();
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault(); // Stop page reload
+
+            const emailVal = document.getElementById("email").value.trim();
+            const prnVal = document.getElementById("prn").value.trim().toUpperCase(); // Force Uppercase!
+
+            // Show Loading
+            const originalText = loginBtn.innerText;
+            loginBtn.innerText = "Verifying...";
+            loginBtn.style.opacity = "0.7";
+
+            try {
+                // 1. AUTHENTICATE WITH SUPABASE
+                const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
+                    email: emailVal,
+                    password: prnVal, // PRN acts as the password
+                });
+
+                if (authError) {
+                    alert("Invalid Email or Password (PRN)!");
+                    throw authError;
+                }
+
+                // 2. FETCH USER DETAILS FROM STUDENTS TABLE
+                const { data: studentData, error: studentError } = await supabase
+                    .from('students')
+                    .select('*')
+                    .eq('email', emailVal)
+                    .single();
+
+                if (studentError || !studentData) {
+                    alert("Account found, but profile data is missing in the database.");
+                    throw new Error("Profile data not found");
+                }
+
+                // SUCCESS: Store the profile data for other pages to use
+                localStorage.setItem("user_data", JSON.stringify(studentData));
+
+                // Animation
+                overlay.classList.add("clear-view");
+                navbar.style.opacity = "0";
+                
+                setTimeout(() => {
+                    card.classList.add("entering-college");
+                    bgImage.classList.add("zoom-in");
+                }, 200);
+
+                setTimeout(() => {
+                    window.location.href = "dashboard.html";
+                }, 1400);
+
+            } catch (err) {
+                console.error("Login failed:", err.message);
+                loginBtn.innerText = originalText;
+                loginBtn.style.opacity = "1";
+            }
+        });
+
+        // --- 4. REGISTRATION LOGIC ---
+        const registerForm = document.getElementById('register-form');
+        const registerBtn = document.getElementById('register-btn');
+
+        registerForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const nameVal = document.getElementById("reg-name").value.trim();
+            const branchVal = document.getElementById("reg-branch").value;
+            const yearVal = document.getElementById("reg-year").value;
+            const emailVal = document.getElementById("reg-email").value.trim();
+            const prnVal = document.getElementById("reg-prn").value.trim().toUpperCase();
+
+            const originalText = registerBtn.innerText;
+            registerBtn.innerText = "Creating Account...";
+            registerBtn.style.opacity = "0.7";
+
+            try {
+                // 1. CREATE USER IN SUPABASE AUTHENTICATION
+                const { data: authData, error: authError } = await supabase.auth.signUp({
+                    email: emailVal,
+                    password: prnVal, // PRN is the initial password
+                });
+
+                if (authError) {
+                    alert("Sign Up Failed: " + authError.message);
+                    throw authError;
+                }
+
+                // 2. INSERT STUDENT PROFILE INTO DATABASE TABLE
+                const newStudent = {
+                    email: emailVal,
+                    prn_number: prnVal,
+                    full_name: nameVal,
+                    branch: branchVal,
+                    year: yearVal,
+                    attendance_percent: 0,   // Defaults
+                    fees_pending: 0,         // Defaults
+                    cgpa: 0                  // Defaults
+                };
+
+                const { error: insertError } = await supabase
+                    .from('students')
+                    .insert([newStudent]);
+
+                if (insertError) {
+                    alert("Profile Creation Error: " + insertError.message);
+                    throw insertError;
+                }
+
+                // SUCCESS: Store the new profile data locally
+                localStorage.setItem("user_data", JSON.stringify(newStudent));
+
+                // Animation
+                overlay.classList.add("clear-view");
+                navbar.style.opacity = "0";
+                
+                setTimeout(() => {
+                    card.classList.add("entering-college");
+                    bgImage.classList.add("zoom-in");
+                }, 200);
+
+                setTimeout(() => {
+                    window.location.href = "dashboard.html";
+                }, 1400);
+
+            } catch (err) {
+                console.error("Registration failed:", err.message);
+                registerBtn.innerText = originalText;
+                registerBtn.style.opacity = "1";
+            }
+        });
+    </script>
+</body>
+</html>
