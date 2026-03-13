@@ -5,222 +5,188 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Academics | Matoshri ERP</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
     <style>
-        /* --- CSS VARIABLES (Same as Dashboard) --- */
         :root {
-            --bg-color: #F3F4F6;
-            --sidebar-bg: #FFFFFF;
-            --card-bg: #FFFFFF;
-            --text-primary: #111827;
-            --text-secondary: #6B7280;
-            --accent-color: #0284C7; /* Blue for Academics */
-            --accent-light: #E0F2FE;
-            --border-color: #E5E7EB;
-            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            --bg-base: #F3F4F6; --bg-surface: #FFFFFF; --bg-hover: #F9FAFB;
+            --text-primary: #111827; --text-secondary: #4B5563; --text-tertiary: #9CA3AF;
+            --border-light: #E5E7EB; --accent-primary: #1D4ED8; --accent-hover: #1E3A8A;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05); --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
         }
-
         .dark-mode {
-            --bg-color: #111827;
-            --sidebar-bg: #1F2937;
-            --card-bg: #1F2937;
-            --text-primary: #F9FAFB;
-            --text-secondary: #9CA3AF;
-            --accent-color: #38BDF8;
-            --accent-light: #0c4a6e;
-            --border-color: #374151;
+            --bg-base: #111827; --bg-surface: #1F2937; --bg-hover: #374151;
+            --text-primary: #F9FAFB; --text-secondary: #D1D5DB; --text-tertiary: #6B7280;
+            --border-light: #374151; --accent-primary: #3B82F6;
         }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background: var(--bg-base); color: var(--text-primary); min-height: 100vh; -webkit-font-smoothing: antialiased; }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; transition: all 0.3s; }
-        body { background-color: var(--bg-color); color: var(--text-primary); display: flex; height: 100vh; overflow: hidden; }
-
-        /* --- SIDEBAR (Hidden on Mobile) --- */
-        .sidebar {
-            width: 260px; background-color: var(--sidebar-bg); border-right: 1px solid var(--border-color);
-            display: flex; flex-direction: column; padding: 24px; flex-shrink: 0; z-index: 50;
+        .top-nav {
+            background: var(--bg-surface); height: 60px; display: flex; align-items: center; justify-content: space-between;
+            padding: 0 24px; border-bottom: 1px solid var(--border-light); box-shadow: var(--shadow-sm);
+            position: sticky; top: 0; z-index: 50;
         }
-        .logo { font-size: 1.25rem; font-weight: 800; margin-bottom: 40px; color: #EF4444; } /* Keep Logo Red */
+        .nav-left { display: flex; align-items: center; gap: 12px; font-weight: 600; }
+        .nav-logo { width: 30px; height: 30px; background: var(--accent-primary); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; }
+        .back-link { text-decoration: none; color: var(--text-secondary); font-size: 14px; display: flex; align-items: center; gap: 6px; }
+        .back-link:hover { color: var(--accent-primary); }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+        .page-header { margin-bottom: 32px; border-bottom: 1px solid var(--border-light); padding-bottom: 24px; }
+        .page-header h1 { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+        .page-header p { color: var(--text-secondary); font-size: 15px; }
         
-        .menu-item {
-            display: flex; align-items: center; padding: 14px 16px; margin-bottom: 8px;
-            border-radius: 12px; color: var(--text-secondary); text-decoration: none; font-weight: 500;
-        }
-        .menu-item:hover { background-color: var(--bg-color); color: var(--accent-color); }
-        .menu-item.active { background-color: var(--accent-light); color: var(--accent-color); }
-        .menu-item span { margin-left: 12px; }
+        .breadcrumb { font-size: 13px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+        .breadcrumb a { color: var(--accent-primary); text-decoration: none; }
 
-        /* --- MAIN CONTENT --- */
-        .main-content { flex: 1; overflow-y: auto; padding: 32px; padding-bottom: 80px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
 
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
-        .page-title h1 { font-size: 1.8rem; font-weight: 700; }
-        .page-title p { color: var(--text-secondary); font-size: 0.9rem; }
-        .back-btn { text-decoration: none; color: var(--text-secondary); display: flex; align-items: center; gap: 8px; margin-bottom: 16px; font-weight: 500;}
-        .back-btn:hover { color: var(--accent-color); }
-
-        /* --- SUBJECT CARDS --- */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
-        
         .subject-card {
-            background-color: var(--card-bg); border-radius: 16px; border: 1px solid var(--border-color);
-            overflow: hidden; box-shadow: var(--shadow);
-            display: flex; flex-direction: column;
+            background: var(--bg-surface); border-radius: 8px; border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-sm); overflow: hidden; transition: box-shadow 0.2s, border-color 0.2s;
         }
-        
-        .card-top {
-            padding: 24px; border-bottom: 1px solid var(--border-color);
-            display: flex; justify-content: space-between; align-items: start;
-        }
-        
-        .subject-info h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
-        .subject-info p { font-size: 0.85rem; color: var(--text-secondary); }
-        .subject-icon { 
-            width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; 
-        }
+        .subject-card:hover { box-shadow: var(--shadow-md); border-color: #D1D5DB; }
 
-        .staff-info {
-            padding: 16px 24px; display: flex; align-items: center; gap: 12px;
-            background-color: var(--bg-color);
+        .card-header { padding: 20px; display: flex; justify-content: space-between; align-items: flex-start; }
+        .subject-info h3 { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+        .subject-info p { font-size: 13px; color: var(--text-secondary); }
+        .type-badge {
+            font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 4px; white-space: nowrap;
         }
-        .staff-avatar {
-            width: 32px; height: 32px; border-radius: 50%; background-color: #D1D5DB;
-            display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: #fff; font-weight: 600;
-        }
-        .staff-name { font-size: 0.85rem; font-weight: 500; }
-        .staff-role { font-size: 0.75rem; color: var(--text-secondary); }
+        .theory-badge { background: #DBEAFE; color: #1D4ED8; }
+        .lab-badge { background: #D1FAE5; color: #059669; }
+        .dark-mode .theory-badge { background: #1e3a8a; color: #93c5fd; }
+        .dark-mode .lab-badge { background: #064e3b; color: #6ee7b7; }
 
-        .actions { padding: 16px 24px; display: flex; gap: 12px; }
+        .card-instructor {
+            padding: 12px 20px; background: var(--bg-base); border-top: 1px solid var(--border-light);
+            display: flex; align-items: center; gap: 12px;
+        }
+        .instructor-avatar {
+            width: 34px; height: 34px; border-radius: 50%; background: var(--accent-primary); color: white;
+            display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0;
+        }
+        .instructor-name { font-size: 13px; font-weight: 600; }
+        .instructor-role { font-size: 12px; color: var(--text-tertiary); }
+        .credits-chip { margin-left: auto; font-size: 12px; font-weight: 600; background: var(--bg-surface); border: 1px solid var(--border-light); padding: 4px 10px; border-radius: 20px; white-space: nowrap; }
+
+        .card-actions { padding: 12px 20px; display: flex; gap: 10px; }
         .btn {
-            flex: 1; padding: 10px; border-radius: 8px; border: 1px solid var(--border-color);
-            background: var(--card-bg); color: var(--text-secondary); font-size: 0.85rem; font-weight: 600; cursor: pointer;
-            text-align: center; text-decoration: none;
+            flex: 1; padding: 9px; border-radius: 6px; border: 1px solid var(--border-light);
+            background: var(--bg-base); color: var(--text-secondary); font-size: 13px; font-weight: 600;
+            cursor: pointer; text-align: center; text-decoration: none; transition: all 0.2s;
         }
-        .btn:hover { border-color: var(--accent-color); color: var(--accent-color); background-color: var(--accent-light); }
-        .btn-primary { background-color: var(--accent-color); color: white; border: none; }
-        .btn-primary:hover { background-color: #0369A1; color: white; }
+        .btn:hover { border-color: var(--accent-primary); color: var(--accent-primary); background: var(--bg-hover); }
+
+        .loading-state { text-align: center; padding: 80px 20px; color: var(--text-secondary); }
+        .loading-state .spinner { width: 32px; height: 32px; border: 3px solid var(--border-light); border-top-color: var(--accent-primary); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .no-data { text-align: center; padding: 60px 20px; background: var(--bg-surface); border: 1px solid var(--border-light); border-radius: 8px; }
+        .no-data h3 { font-size: 18px; margin-bottom: 8px; }
+        .no-data p { color: var(--text-secondary); font-size: 14px; }
 
         @media (max-width: 768px) {
-            .sidebar { display: none; } /* Simplified for this specific page demo */
-            .main-content { padding: 20px; }
+            .top-nav { padding: 0 16px; }
+            .container { padding: 24px 16px; }
+            .grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
-    <script>
-        if (localStorage.getItem('darkMode') === 'true') {
-            document.body.classList.add('dark-mode');
+    <nav class="top-nav">
+        <div class="nav-left">
+            <div class="nav-logo">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            </div>
+            Matoshri ERP
+        </div>
+        <a href="dashboard.html" class="back-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            Back to Dashboard
+        </a>
+    </nav>
+
+    <main class="container">
+        <div class="breadcrumb">
+            <a href="dashboard.html">ERP Portal</a> <span>/</span> <span>Academics</span>
+        </div>
+        <div class="page-header">
+            <h1>My Subjects</h1>
+            <p id="page-subtitle">Loading your enrolled subjects...</p>
+        </div>
+
+        <div id="subjects-container" class="grid">
+            <div class="loading-state" style="grid-column: 1/-1;">
+                <div class="spinner"></div>
+                <p>Fetching your subjects from the server...</p>
+            </div>
+        </div>
+    </main>
+
+    <script type="module">
+        import { supabase } from './db-config.js';
+
+        (async () => {
+        // 1. Auth check
+        const userJson = localStorage.getItem('user_data');
+        if (!userJson) { window.location.href = 'index.html'; return; }
+        const user = JSON.parse(userJson);
+
+        document.getElementById('page-subtitle').innerText = `${user.branch} · ${user.year}`;
+
+        const container = document.getElementById('subjects-container');
+
+        // 2. Fetch subjects matching user's branch and year
+        const { data: subjects, error } = await supabase
+            .from('subjects')
+            .select('*')
+            .eq('branch', user.branch)
+            .eq('year', user.year)
+            .order('type', { ascending: false }); // Theory first
+
+        if (error || !subjects || subjects.length === 0) {
+            container.innerHTML = `
+                <div class="no-data" style="grid-column: 1/-1;">
+                    <h3>No subjects found</h3>
+                    <p>No subjects are currently assigned to your branch and year (${user.branch} - ${user.year}).<br>Please contact the academic office or run the database.sql script.</p>
+                </div>`;
+            return;
         }
+
+        // 3. Render subject cards
+        container.innerHTML = '';
+        subjects.forEach(sub => {
+            const initials = sub.instructor_name.split(' ').filter(n => n !== 'Dr.' && n !== 'Prof.').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+            const typeClass = sub.type === 'Lab' ? 'lab-badge' : 'theory-badge';
+            const actionLabel = sub.type === 'Lab' ? 'Lab Manual' : 'Notes';
+
+            container.innerHTML += `
+                <div class="subject-card">
+                    <div class="card-header">
+                        <div class="subject-info">
+                            <h3>${sub.title}</h3>
+                            <p>Code: ${sub.course_code}</p>
+                        </div>
+                        <span class="type-badge ${typeClass}">${sub.type}</span>
+                    </div>
+                    <div class="card-instructor">
+                        <div class="instructor-avatar">${initials}</div>
+                        <div>
+                            <div class="instructor-name">${sub.instructor_name}</div>
+                            <div class="instructor-role">${sub.instructor_role}</div>
+                        </div>
+                        <span class="credits-chip">${sub.credits} Credits</span>
+                    </div>
+                    <div class="card-actions">
+                        <a href="#" class="btn">Syllabus</a>
+                        <a href="#" class="btn">${actionLabel}</a>
+                    </div>
+                </div>`;
+        });
+
+        // Dark Mode
+        if (localStorage.getItem('darkMode') === 'true') document.body.classList.add('dark-mode');
+        })();
     </script>
-
-    <div class="sidebar">
-        <div class="logo">🎓 Matoshri ERP</div>
-        <a href="dashboard.html" class="menu-item">🏠 <span>Dashboard</span></a>
-        <a href="#" class="menu-item active">📚 <span>Academics</span></a>
-        <a href="#" class="menu-item">📅 <span>Attendance</span></a>
-        <a href="#" class="menu-item">📝 <span>Examination</span></a>
-        <div style="margin-top: auto;">
-            <a href="index.html" class="menu-item" style="color: #EF4444;">🚪 <span>Logout</span></a>
-        </div>
-    </div>
-
-    <div class="main-content">
-        <a href="dashboard.html" class="back-btn">← Back to Dashboard</a>
-        
-        <div class="header">
-            <div class="page-title">
-                <h1>My Subjects</h1>
-                <p>Semester 1 • AI & Data Science</p>
-            </div>
-        </div>
-
-        <div class="grid">
-            
-            <div class="subject-card">
-                <div class="card-top">
-                    <div class="subject-info">
-                        <h3>Engineering Mathematics I</h3>
-                        <p>Code: 107008</p>
-                    </div>
-                    <div class="subject-icon" style="background:#E0F2FE; color:#0284C7;">📐</div>
-                </div>
-                <div class="staff-info">
-                    <div class="staff-avatar" style="background:#0284C7;">SM</div>
-                    <div>
-                        <div class="staff-name">Savita Mahendra Badve</div>
-                        <div class="staff-role">Course Instructor</div>
-                    </div>
-                </div>
-                <div class="actions">
-                    <a href="#" class="btn">Syllabus</a>
-                    <a href="#" class="btn btn-primary">Notes</a>
-                </div>
-            </div>
-
-            <div class="subject-card">
-                <div class="card-top">
-                    <div class="subject-info">
-                        <h3>Applied Physics</h3>
-                        <p>Code: 107002</p>
-                    </div>
-                    <div class="subject-icon" style="background:#F3E8FF; color:#9333EA;">⚛️</div>
-                </div>
-                <div class="staff-info">
-                    <div class="staff-avatar" style="background:#9333EA;">MN</div>
-                    <div>
-                        <div class="staff-name">Mayuri Nitin Lokhande</div>
-                        <div class="staff-role">Course Instructor</div>
-                    </div>
-                </div>
-                <div class="actions">
-                    <a href="#" class="btn">Syllabus</a>
-                    <a href="#" class="btn btn-primary">Notes</a>
-                </div>
-            </div>
-
-            <div class="subject-card">
-                <div class="card-top">
-                    <div class="subject-info">
-                        <h3>Python Programming</h3>
-                        <p>Code: 110005</p>
-                    </div>
-                    <div class="subject-icon" style="background:#ECFDF5; color:#059669;">🐍</div>
-                </div>
-                <div class="staff-info">
-                    <div class="staff-avatar" style="background:#059669;">KS</div>
-                    <div>
-                        <div class="staff-name">Kiran Shivaji Shivade</div>
-                        <div class="staff-role">Lab Assistant</div>
-                    </div>
-                </div>
-                <div class="actions">
-                    <a href="#" class="btn">Syllabus</a>
-                    <a href="#" class="btn btn-primary">Lab Manual</a>
-                </div>
-            </div>
-
-            <div class="subject-card">
-                <div class="card-top">
-                    <div class="subject-info">
-                        <h3>Engineering Drawing</h3>
-                        <p>Code: 102012</p>
-                    </div>
-                    <div class="subject-icon" style="background:#FFF7ED; color:#EA580C;">✏️</div>
-                </div>
-                <div class="staff-info">
-                    <div class="staff-avatar" style="background:#EA580C;">LG</div>
-                    <div>
-                        <div class="staff-name">Lokesh Ganpat Kamde</div>
-                        <div class="staff-role">Course Instructor</div>
-                    </div>
-                </div>
-                <div class="actions">
-                    <a href="#" class="btn">Syllabus</a>
-                    <a href="#" class="btn btn-primary">Sheets</a>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
 </body>
 </html>
