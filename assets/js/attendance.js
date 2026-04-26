@@ -1,11 +1,12 @@
 import { supabase } from '../../config/db-config.js';
-import { checkAuth, initTheme } from './utils.js';
+import { checkAuth, initTheme, initHeader } from './utils.js';
 
 (async () => {
     // 1. Auth and Theme check
     const user = checkAuth();
     if (!user) return;
     initTheme();
+    initHeader(user);
 
     const subtitle = document.getElementById('page-subtitle');
     if (subtitle) subtitle.innerText = `Academic Year 2025-26 · ${user.branch}`;

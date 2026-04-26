@@ -1,28 +1,12 @@
-// 1. Data and State
-const userJson = localStorage.getItem("user_data");
-const userData = userJson ? JSON.parse(userJson) : { full_name: "Student", prn_number: "N/A" };
+import { checkAuth, initTheme, initHeader } from './utils.js';
 
-if (!userJson && window.location.hostname !== 'localhost') {
-    window.location.href = "../index.html"; // Path updated!
+const userData = checkAuth();
+if (!userData) {
+    window.location.href = '../index.html';
+} else {
+    initTheme();
+    initHeader(userData);
 }
-
-// Update UI with user data
-const userDisplayName = document.getElementById("user-display-name");
-const userInitials = document.getElementById("user-initials");
-const userAvatarImg = document.getElementById("user-avatar-img");
-
-if (userDisplayName) userDisplayName.innerText = userData.full_name;
-if (userInitials) {
-    const initials = userData.full_name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
-    userInitials.innerText = initials;
-}
-if (userAvatarImg) userAvatarImg.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(userData.full_name)}&background=random`;
-
-// Update Metadata Spans
-const prnDisplay = document.getElementById("user-prn-display");
-const courseDisplay = document.getElementById("user-course-display");
-if (prnDisplay) prnDisplay.innerText = `Registration No: ${userData.prn_number || 'N/A'}`;
-if (courseDisplay) courseDisplay.innerText = `${userData.branch || 'N/A'}`;
 
 const modules = [
     { id: "asportal", name: "ASPORTAL", icon: "https://img.icons8.com/fluency/96/checklist.png" },
