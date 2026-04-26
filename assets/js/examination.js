@@ -1,4 +1,3 @@
-import { supabase } from '../../config/db-config.js';
 import { checkAuth, initTheme, initHeader } from './utils.js';
 
 (async () => {
@@ -8,77 +7,36 @@ import { checkAuth, initTheme, initHeader } from './utils.js';
     initTheme();
     initHeader(user);
 
-    const statRow = document.getElementById('stat-row');
-    const resultsTable = document.getElementById('results-table');
-    if (!statRow || !resultsTable) return;
+    // 2. Populate Student Info Bar
+    document.getElementById('info-prn').innerText = user.prn_number || 'N/A';
+    document.getElementById('info-course').innerText = user.branch || 'N/A';
+    document.getElementById('info-year').innerText = user.year || 'N/A';
 
-    const { data: results, error } = await supabase
-        .from('exam_results')
-        .select('*, subjects(title, course_code, credits)')
-        .eq('student_prn', user.prn_number)
-        .order('grade_points', { ascending: true });
+    // 3. Mock Result Data
+    const results = [
+        { srNo: 1, code: "CS401", name: "Artificial Intelligence", type: "Regular", sem: 1, cat1: 24, cat2: 26, ese: 62, total: 88, grade: "O" },
+        { srNo: 2, code: "CS402", name: "Machine Learning Lab", type: "Regular", sem: 1, cat1: "--", cat2: "--", ese: 45, total: 90, grade: "O" },
+        { srNo: 3, code: "CS403", name: "Software Engineering", type: "Regular", sem: 1, cat1: 22, cat2: 21, ese: 58, total: 79, grade: "A+" },
+        { srNo: 4, code: "CS404", name: "Project Management", type: "Regular", sem: 1, cat1: 20, cat2: 19, ese: 55, total: 74, grade: "A" },
+        { srNo: 5, code: "HS101", name: "Human Values & Ethics", type: "Regular", sem: 1, cat1: 28, cat2: 27, ese: 65, total: 93, grade: "O" }
+    ];
 
-    if (error || !results || results.length === 0) {
-        resultsTable.innerHTML = `<div class="loading-state"><p>No exam results found for your PRN (${user.prn_number}).<br>Please contact the examination cell.</p></div>`;
-        return;
+    const tableBody = document.getElementById('results-body');
+    if (tableBody) {
+        tableBody.innerHTML = results.map(r => `
+            <tr>
+                <td>${r.srNo}</td>
+                <td>${r.code}</td>
+                <td>${r.name}</td>
+                <td>${r.type}</td>
+                <td>${r.sem}</td>
+                <td>${r.cat1}</td>
+                <td>${r.cat2}</td>
+                <td>${r.ese}</td>
+                <td><strong>${r.total}</strong></td>
+                <td><span class="grade-badge ${r.grade === 'O' || r.grade === 'A+' ? 'grade-a' : 'grade-b'}">${r.grade}</span></td>
+            </tr>
+        `).join('');
     }
 
-    // Compute SGPA
-    let totalPoints = 0, totalCredits = 0;
-    results.forEach(r => {
-        const credits = r.subjects?.credits || 4;
-        totalPoints += r.grade_points * credits;
-        totalCredits += credits;
-    });
-    const sgpa = (totalPoints / totalCredits).toFixed(2);
-
-    const gradeCount = results.reduce((acc, r) => ({ ...acc, [r.grade]: (acc[r.grade] || 0) + 1 }), {});
-    const topGrade = Object.entries(gradeCount).sort((a,b) => b[1]-a[1])[0]?.[0];
-
-    statRow.innerHTML = `
-        <div class="stat-card">
-            <span class="stat-label">Semester SGPA</span>
-            <div class="stat-value purple">${sgpa}</div>
-        </div>
-        <div class="stat-card">
-            <span class="stat-label">Subjects Cleared</span>
-            <div class="stat-value">  ${results.filter(r => r.grade_points >= 4).length} / ${results.length}</div>
-        </div>
-        <div class="stat-card">
-            <span class="stat-label">Highest Score</span>
-            <div class="stat-value">${Math.max(...results.map(r => r.marks_obtained))}</div>
-        </div>
-        <div class="stat-card">
-            <span class="stat-label">Most Common Grade</span>
-            <div class="stat-value">${topGrade || '—'}</div>
-        </div>`;
-
-    const gradeClassMap = { 'O': 'grade-O', 'A+': 'grade-Ap', 'A': 'grade-A', 'B+': 'grade-Bp', 'B': 'grade-B', 'F': 'grade-F' };
-    const rows = results.sort((a,b) => b.marks_obtained - a.marks_obtained).map(r => {
-        const gradeClass = gradeClassMap[r.grade] || 'grade-B';
-        const barWidth = (r.marks_obtained / r.max_marks) * 100;
-        return `<tr>
-            <td><strong>${r.subjects.title}</strong><br><span style="color: var(--text-tertiary); font-size: 12px;">${r.subjects.course_code} · ${r.subjects.credits} Credits</span></td>
-            <td>${r.marks_obtained} / ${r.max_marks}</td>
-            <td>
-                <div class="grade-bar"><div class="grade-bar-fill" style="width: ${barWidth}%"></div></div>
-            </td>
-            <td><span class="grade-badge ${gradeClass}">${r.grade}</span></td>
-            <td>${r.grade_points} / 10</td>
-        </tr>`;
-    }).join('');
-
-    resultsTable.innerHTML = `
-        <table>
-            <thead>
-                <tr>
-                    <th>Subject</th>
-                    <th>Marks Obtained</th>
-                    <th style="width: 120px;">Progress</th>
-                    <th>Grade</th>
-                    <th>Grade Points</th>
-                </tr>
-            </thead>
-            <tbody>${rows}</tbody>
-        </table>`;
 })();

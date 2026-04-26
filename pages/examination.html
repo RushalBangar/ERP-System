@@ -52,17 +52,51 @@
     </div>
 
     <main class="container">
-        <div class="breadcrumb"><a href="dashboard.html">ERP Portal</a> <span>/</span> <span>Examination</span></div>
+        <div class="breadcrumb"><a href="dashboard.html">Home</a> <span>/</span> <span>Examination</span></div>
+        
         <div class="page-header">
-            <h1>Examination Cell</h1>
-            <p>View your exam results, download hall tickets, and manage examination forms.</p>
+            <h1>Examination Results</h1>
+            <p>View your performance in Continuous Assessment Tests (CAT) and End-Semester Exams (ESE).</p>
         </div>
 
-        <!-- RESULTS SECTION -->
-        <h2 class="section-title">Grade Card — Previous Semester</h2>
-        <div id="stat-row" class="stat-row"></div>
-        <div class="table-wrapper" id="results-table">
-            <div class="loading-state"><div class="spinner"></div><p>Fetching your results...</p></div>
+        <!-- Student Info Bar -->
+        <div class="exam-info-bar as-section">
+            <div class="info-item"><strong>Registration No:</strong> <span id="info-prn">--</span></div>
+            <div class="info-item"><strong>Course:</strong> <span id="info-course">--</span></div>
+            <div class="info-item"><strong>Year:</strong> <span id="info-year">--</span></div>
+            <div class="status-tag"><span class="status-dot"></span> Active</div>
+        </div>
+
+        <!-- Results Table Section -->
+        <div class="table-section as-section">
+            <div class="table-header">
+                <h2 class="section-title">Grade Card - Sem 1 (2024-25)</h2>
+                <div class="export-btns">
+                    <button class="btn-sm">Print Grade Card</button>
+                    <button class="btn-sm">Download PDF</button>
+                </div>
+            </div>
+            <div class="table-wrapper">
+                <table id="results-table">
+                    <thead>
+                        <tr>
+                            <th>Sr No</th>
+                            <th>Course Code</th>
+                            <th>Course Name</th>
+                            <th>Type</th>
+                            <th>Sem</th>
+                            <th>CAT 1</th>
+                            <th>CAT 2</th>
+                            <th>ESE</th>
+                            <th>Total</th>
+                            <th>Grade</th>
+                        </tr>
+                    </thead>
+                    <tbody id="results-body">
+                        <!-- Data injected by JS -->
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <hr class="section-divider">

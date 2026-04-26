@@ -52,21 +52,72 @@
     </div>
 
     <main class="container">
-        <div class="breadcrumb"><a href="dashboard.html">ERP Portal</a> <span>/</span> <span>Accounts & Fees</span></div>
+        <div class="breadcrumb"><a href="dashboard.html">Home</a> <span>/</span> <span>Accounts</span></div>
+        
         <div class="page-header">
-            <h1>Fee Ledger</h1>
-            <p>View your fee invoices, payment history, and outstanding dues.</p>
+            <h1>Accounts & Fees</h1>
+            <p>View your transaction history and manage pending fee payments.</p>
         </div>
 
-        <div id="stat-row-container" class="stat-row">
-            <div class="stat-card"><span class="stat-label">Loading...</span></div>
+        <!-- Accounts Module Selection -->
+        <div class="accounts-nav as-section">
+            <button class="acc-nav-btn active" data-target="pending">Pay Fees (Pending)</button>
+            <button class="acc-nav-btn" data-target="receipts">Fees Receipts (History)</button>
         </div>
 
-        <h2 class="section-title">Transaction History</h2>
-        <div class="table-wrapper">
-            <div class="loading-state">
-                <div class="spinner"></div>
-                <p>Fetching fee records from server...</p>
+        <!-- Student Info Bar -->
+        <div class="exam-info-bar as-section">
+            <div class="info-item"><strong>Registration No:</strong> <span id="info-prn">--</span></div>
+            <div class="info-item"><strong>Branch:</strong> <span id="info-branch">--</span></div>
+            <div class="status-tag"><span class="status-dot"></span> Active</div>
+        </div>
+
+        <!-- Pending Fees Table (Default) -->
+        <div id="pending-section" class="table-section as-section">
+            <div class="table-header">
+                <h2 class="section-title">Pending Fees List</h2>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sr No</th>
+                            <th>Fees Type</th>
+                            <th>Description</th>
+                            <th>AY</th>
+                            <th>Sem</th>
+                            <th>Amount</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pending-body">
+                        <!-- Data injected by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Receipts History Table (Hidden by default) -->
+        <div id="receipts-section" class="table-section as-section" style="display: none;">
+            <div class="table-header">
+                <h2 class="section-title">Fees Receipts History</h2>
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>AY</th>
+                            <th>Sem</th>
+                            <th>Receipt No</th>
+                            <th>Receipt Date</th>
+                            <th>Amount</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="receipts-body">
+                        <!-- Data injected by JS -->
+                    </tbody>
+                </table>
             </div>
         </div>
     </main>

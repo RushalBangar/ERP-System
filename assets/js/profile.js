@@ -1,33 +1,45 @@
-import { checkAuth, initTheme } from './utils.js';
+import { checkAuth, initTheme, initHeader } from './utils.js';
 
-window.onload = function() {
+(async () => {
     // 1. Auth and Theme check
     const user = checkAuth();
     if (!user) return;
     initTheme();
+    initHeader(user);
 
-    // Update Header
-    const nameEl = document.getElementById('p-name');
-    const branchEl = document.getElementById('p-branch');
-    const initialsEl = document.getElementById('p-initials');
-
-    if (nameEl) nameEl.innerText = user.full_name;
-    if (branchEl) branchEl.innerText = user.branch + " • " + user.year;
-    if (initialsEl) {
-        const initials = user.full_name.match(/\b(\w)/g).join('').substring(0,2);
-        initialsEl.innerText = initials;
+    // 2. Populate Fields
+    if (user) {
+        document.getElementById('p-first-name').value = user.full_name.split(' ')[0] || '';
+        document.getElementById('p-middle-name').value = user.full_name.split(' ')[1] || '';
+        document.getElementById('p-last-name').value = user.full_name.split(' ')[2] || '';
+        document.getElementById('p-email').value = user.email || '';
+        document.getElementById('p-mobile').value = user.mobile || '+91 9876543210';
+        
+        // Category can be dynamic if in user data
+        if (user.category) document.getElementById('p-category').value = user.category;
     }
 
-    // Update Inputs
-    const inName = document.getElementById('in-name');
-    const inPrn = document.getElementById('in-prn');
-    const inEmail = document.getElementById('in-email');
-    const inPhone = document.getElementById('in-phone');
-    const inAddress = document.getElementById('in-address');
+    // 3. Tab Switching Logic
+    const navItems = document.querySelectorAll('.nav-item');
+    const personalTab = document.getElementById('personal-tab');
+    const otherTabs = document.getElementById('other-tabs');
 
-    if (inName) inName.value = user.full_name;
-    if (inPrn) inPrn.value = user.prn_number;
-    if (inEmail) inEmail.value = user.email || "";
-    if (inPhone) inPhone.value = user.phone || "";
-    if (inAddress) inAddress.value = user.address || "";
-}
+    navItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const tabName = item.dataset.tab;
+
+            // Update Nav
+            navItems.forEach(nav => nav.classList.remove('active'));
+            item.classList.add('active');
+
+            // Update Content
+            if (tabName === 'personal') {
+                personalTab.classList.add('active');
+                otherTabs.classList.remove('active');
+            } else {
+                personalTab.classList.remove('active');
+                otherTabs.classList.add('active');
+            }
+        });
+    });
+})();

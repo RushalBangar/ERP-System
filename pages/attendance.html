@@ -52,21 +52,44 @@
     </div>
 
     <main class="container">
-        <div class="breadcrumb"><a href="dashboard.html">ERP Portal</a> <span>/</span> <span>Attendance</span></div>
+        <div class="breadcrumb"><a href="dashboard.html">Home</a> <span>/</span> <a href="academics.html">Academics</a> <span>/</span> <span>My Attendance</span></div>
+        
         <div class="page-header">
-            <h1>Attendance Register</h1>
-            <p id="page-subtitle">Loading your attendance records...</p>
+            <h1>My Attendance</h1>
+            <p>Track your lecture and practical attendance for the current semester.</p>
         </div>
 
-        <div id="stat-row-container" class="stat-row"></div>
-        <div id="alert-container"></div>
-        
-        <h2 class="section-title">Subject-Wise Attendance</h2>
-        <div id="subjects-container" class="subject-table">
-            <div class="loading-state">
-                <div class="spinner"></div>
-                <p>Fetching attendance records...</p>
+        <!-- Filters Section -->
+        <div class="attendance-filters as-section">
+            <div class="filter-group">
+                <label>Academic Year</label>
+                <select id="year-select">
+                    <option>2025-26</option>
+                    <option>2024-25</option>
+                </select>
             </div>
+            <div class="filter-group">
+                <label>Semester</label>
+                <select id="sem-select">
+                    <option>2</option>
+                    <option>1</option>
+                </select>
+            </div>
+            <button class="fetch-btn" id="fetch-attendance">Fetch</button>
+        </div>
+
+        <!-- Student Info Bar -->
+        <div class="attendance-info-bar as-section">
+            <div class="info-item"><strong>PRN:</strong> <span id="info-prn">--</span></div>
+            <div class="info-item"><strong>Class Teacher:</strong> <span id="info-teacher">--</span></div>
+            <div class="info-item"><strong>Year:</strong> <span id="info-year">--</span></div>
+            <div class="info-item"><strong>Division:</strong> <span id="info-div">--</span></div>
+            <div class="info-item"><strong>Roll No:</strong> <span id="info-roll">--</span></div>
+        </div>
+
+        <!-- Attendance Grid -->
+        <div class="attendance-grid" id="attendance-list">
+            <!-- Cards injected by JS -->
         </div>
     </main>
 
