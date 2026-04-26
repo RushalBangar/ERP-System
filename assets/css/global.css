@@ -11,6 +11,13 @@
     --accent-hover: #1E3A8A;
     --shadow-sm: 0 1px 2px rgba(0,0,0,0.05); 
     --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+    --primary: #1d4ed8;
+    --primary-light: #eff6ff;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    --header-bg: #ffffff;
+    --sub-header-bg: #f1f5f9;
 }
 
 .dark-mode {
@@ -34,45 +41,186 @@ body {
 }
 
 /* Common UI Components */
-.top-nav {
-    background: var(--bg-surface); 
-    height: 60px; 
-    display: flex; 
-    align-items: center; 
+/* --- UNIFIED HEADER & SUB-HEADER --- */
+header.top-bar {
+    background: var(--header-bg);
+    padding: 10px 24px;
+    display: flex;
+    align-items: center;
     justify-content: space-between;
-    padding: 0 24px; 
-    border-bottom: 1px solid var(--border-light); 
-    box-shadow: var(--shadow-sm);
-    position: sticky; 
-    top: 0; 
-    z-index: 50;
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
-.nav-left { display: flex; align-items: center; gap: 12px; font-weight: 600; }
-
-.nav-logo { 
-    width: 30px; 
-    height: 30px; 
-    background: var(--accent-primary); 
-    border-radius: 4px; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    color: white; 
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
-.back-link { 
-    text-decoration: none; 
-    color: var(--text-secondary); 
-    font-size: 14px; 
-    display: flex; 
-    align-items: center; 
-    gap: 6px; 
+.college-logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
 }
 
-.back-link:hover { color: var(--accent-primary); }
+.college-name {
+    font-weight: 700;
+    font-size: 16px;
+    color: #334155;
+}
 
-.container { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+.header-center {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 12px;
+    color: #10b981;
+    font-weight: 600;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.nav-icons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    color: #64748b;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    transition: all 0.2s;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-btn:hover {
+    background: #f1f5f9;
+    color: var(--primary);
+}
+
+.notification-badge {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background: #ef4444;
+    color: white;
+    font-size: 10px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+
+.user-profile {
+    background: #1e3a8a;
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.sub-header {
+    background: var(--sub-header-bg);
+    padding: 8px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 61px; /* Height of top-bar */
+    z-index: 90;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+}
+
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #cbd5e1;
+    overflow: hidden;
+}
+
+.user-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.user-name {
+    font-weight: 600;
+    color: #475569;
+    text-transform: uppercase;
+}
+
+.status-tag {
+    background: #dcfce7;
+    color: #166534;
+    padding: 2px 8px;
+    border-radius: 9999px;
+    font-size: 11px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.status-dot {
+    width: 6px;
+    height: 6px;
+    background: #22c55e;
+    border-radius: 50%;
+}
+
+.quick-links {
+    display: flex;
+    gap: 16px;
+    font-size: 13px;
+    color: #64748b;
+}
+
+.quick-links a {
+    text-decoration: none;
+    color: inherit;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.quick-links a:hover {
+    color: var(--primary);
+}
+
+.container { max-width: 1200px; margin: 0 auto; padding: 20px 24px; }
 
 .breadcrumb { 
     font-size: 13px; 
