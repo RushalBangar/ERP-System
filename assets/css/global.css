@@ -16,8 +16,9 @@
     --text-main: #1e293b;
     --text-muted: #64748b;
     --border: #e2e8f0;
-    --header-bg: #ffffff;
-    --sub-header-bg: #f1f5f9;
+    --header-bg: #E8EAF6;
+    --sub-header-bg: #ffffff;
+    --font-main: 'Roboto', sans-serif;
 }
 
 .dark-mode {
@@ -31,7 +32,7 @@
     --accent-primary: #3B82F6;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-main); }
 
 body { 
     background: var(--bg-base); 
