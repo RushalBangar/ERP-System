@@ -7,44 +7,52 @@ import { checkAuth, initTheme, initHeader } from './utils.js';
     initTheme();
     initHeader(user);
 
-    // 2. Populate Badges
-    const badgesList = document.getElementById('badges-list');
-    const badges = [
-        { name: "Punctual", icon: "⏰" },
-        { name: "Scholar", icon: "🎓" },
-        { name: "Sporty", icon: "⚽" },
-        { name: "Helpful", icon: "🤝" }
+    // 2. Populate Student info bar
+    document.getElementById('info-branch').innerText = user.branch || 'N/A';
+    document.getElementById('info-year').innerText = user.year || 'N/A';
+    document.getElementById('info-div').innerText = 'F'; // Mock division
+
+    // 3. Mock Assignment Data
+    const assignments = [
+        { 
+            srNo: 1, code: "CS401", name: "Artificial Intelligence", 
+            type: "Theory", batch: "All", faculty: "Dr. A. P. Joshi", allocation: "Allocated" 
+        },
+        { 
+            srNo: 2, code: "CS402", name: "Machine Learning Lab", 
+            type: "Lab", batch: "B1", faculty: "Prof. S. R. Patil", allocation: "Allocated" 
+        },
+        { 
+            srNo: 3, code: "CS403", name: "Software Engineering", 
+            type: "Theory", batch: "All", faculty: "Dr. V. M. Kulkarni", allocation: "Not Allocated" 
+        }
     ];
 
-    if (badgesList) {
-        badgesList.innerHTML = badges.map(b => `
-            <div class="badge-item">
-                <div class="badge-icon">${b.icon}</div>
-                <div class="badge-name">${b.name}</div>
-            </div>
+    const tableBody = document.getElementById('assignment-body');
+    if (tableBody) {
+        tableBody.innerHTML = assignments.map(a => `
+            <tr>
+                <td>${a.srNo}</td>
+                <td>${a.code}</td>
+                <td>${a.name}</td>
+                <td>${a.type}</td>
+                <td>${a.batch}</td>
+                <td>${a.faculty}</td>
+                <td><span style="color: ${a.allocation === 'Allocated' ? '#10b981' : '#f59e0b'}; font-weight: 600;">${a.allocation}</span></td>
+                <td><button class="action-btn">Proceed</button></td>
+            </tr>
         `).join('');
     }
 
-    // 3. Populate Events
-    const eventsList = document.getElementById('events-list');
-    const events = [
-        { day: "28", month: "Apr", title: "Cultural Fest", desc: "Annual cultural competition at Main Hall" },
-        { day: "02", month: "May", title: "Tech Workshop", desc: "AI & Machine Learning hands-on session" },
-        { day: "15", month: "May", title: "Sports Meet", desc: "Inter-college cricket tournament" }
-    ];
-
-    if (eventsList) {
-        eventsList.innerHTML = events.map(e => `
-            <div class="event-item">
-                <div class="event-date">
-                    <span class="day">${e.day}</span>
-                    <span class="month">${e.month}</span>
-                </div>
-                <div class="event-info">
-                    <h3>${e.title}</h3>
-                    <p>${e.desc}</p>
-                </div>
-            </div>
-        `).join('');
+    // 4. Populate Course Dropdown
+    const courseSelect = document.getElementById('course-select');
+    if (courseSelect) {
+        const uniqueCourses = [...new Set(assignments.map(a => a.name))];
+        uniqueCourses.forEach(c => {
+            const opt = document.createElement('option');
+            opt.value = c;
+            opt.innerText = c;
+            courseSelect.appendChild(opt);
+        });
     }
 })();

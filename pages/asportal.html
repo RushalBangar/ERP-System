@@ -52,48 +52,79 @@
     </div>
 
     <main class="container">
-        <div class="breadcrumb"><a href="dashboard.html">ERP Portal</a> <span>/</span> <span>ASPORTAL</span></div>
+        <div class="breadcrumb"><a href="dashboard.html">Home</a> <span>/</span> <span>Assignment</span></div>
         
         <div class="page-header">
-            <h1>Activity & Progress</h1>
-            <p>Track your academic activities, events, and personal milestones.</p>
+            <h1>Assignment</h1>
+            <p>Manage and track your course assignments and problem statements.</p>
         </div>
 
-        <div class="as-grid">
-            <!-- Achievements -->
-            <section class="as-section">
-                <h2 class="section-title">My Badges</h2>
-                <div class="badges-container" id="badges-list">
-                    <div class="badge-placeholder">Loading achievements...</div>
-                </div>
-            </section>
+        <!-- Filters Section -->
+        <div class="as-filters as-section">
+            <div class="filter-group">
+                <label>Academic Year</label>
+                <select id="year-select">
+                    <option>2025-26</option>
+                    <option>2024-25</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Semester</label>
+                <select id="sem-select">
+                    <option>1</option>
+                    <option>2</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Course</label>
+                <select id="course-select">
+                    <option>-- Select Course --</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Course Component</label>
+                <select id="component-select">
+                    <option>-- Select Component --</option>
+                </select>
+            </div>
+        </div>
 
-            <!-- Upcoming Events -->
-            <section class="as-section">
-                <h2 class="section-title">Upcoming Events</h2>
-                <div class="events-list" id="events-list">
-                    <div class="event-placeholder">Checking for events...</div>
-                </div>
-            </section>
+        <!-- Student Info Bar -->
+        <div class="info-bar as-section">
+            <div class="info-item"><strong>Branch:</strong> <span id="info-branch">--</span></div>
+            <div class="info-item"><strong>Year:</strong> <span id="info-year">--</span></div>
+            <div class="info-item"><strong>Division:</strong> <span id="info-div">--</span></div>
+        </div>
 
-            <!-- Academic Calendar Summary -->
-            <section class="as-section full-width">
-                <h2 class="section-title">Academic Timeline</h2>
-                <div class="timeline-container" id="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-date">SEM START</div>
-                        <div class="timeline-content">Semester began on Jan 15, 2026</div>
-                    </div>
-                    <div class="timeline-item active">
-                        <div class="timeline-date">CURRENT</div>
-                        <div class="timeline-content">Week 14: Mid-term preparations</div>
-                    </div>
-                    <div class="timeline-item future">
-                        <div class="timeline-date">EXAMS</div>
-                        <div class="timeline-content">Final Examinations (Tentative: May 20)</div>
-                    </div>
+        <!-- Assignment Table -->
+        <div class="table-section as-section">
+            <div class="table-header">
+                <h2 class="section-title">Assignment Details</h2>
+                <div class="export-btns">
+                    <button class="btn-sm">Print</button>
+                    <button class="btn-sm">PDF</button>
+                    <button class="btn-sm">Excel</button>
                 </div>
-            </section>
+            </div>
+            <div class="table-wrapper">
+                <table id="assignment-table">
+                    <thead>
+                        <tr>
+                            <th>Sr No</th>
+                            <th>Course Code</th>
+                            <th>Course Name</th>
+                            <th>Type</th>
+                            <th>Batch</th>
+                            <th>Faculty Name</th>
+                            <th>Problem Statement Allocation</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="assignment-body">
+                        <!-- Data injected by JS -->
+                    </tbody>
+                </table>
+            </div>
         </div>
     </main>
 
