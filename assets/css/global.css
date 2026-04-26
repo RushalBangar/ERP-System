@@ -1,0 +1,96 @@
+/* --- GLOBAL STYLES --- */
+:root {
+    --bg-base: #F3F4F6; 
+    --bg-surface: #FFFFFF; 
+    --bg-hover: #F9FAFB;
+    --text-primary: #111827; 
+    --text-secondary: #4B5563; 
+    --text-tertiary: #9CA3AF;
+    --border-light: #E5E7EB; 
+    --accent-primary: #1D4ED8; 
+    --accent-hover: #1E3A8A;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.05); 
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+}
+
+.dark-mode {
+    --bg-base: #111827; 
+    --bg-surface: #1F2937; 
+    --bg-hover: #374151;
+    --text-primary: #F9FAFB; 
+    --text-secondary: #D1D5DB; 
+    --text-tertiary: #6B7280;
+    --border-light: #374151; 
+    --accent-primary: #3B82F6;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+
+body { 
+    background: var(--bg-base); 
+    color: var(--text-primary); 
+    min-height: 100vh; 
+    -webkit-font-smoothing: antialiased; 
+}
+
+/* Common UI Components */
+.top-nav {
+    background: var(--bg-surface); 
+    height: 60px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between;
+    padding: 0 24px; 
+    border-bottom: 1px solid var(--border-light); 
+    box-shadow: var(--shadow-sm);
+    position: sticky; 
+    top: 0; 
+    z-index: 50;
+}
+
+.nav-left { display: flex; align-items: center; gap: 12px; font-weight: 600; }
+
+.nav-logo { 
+    width: 30px; 
+    height: 30px; 
+    background: var(--accent-primary); 
+    border-radius: 4px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    color: white; 
+}
+
+.back-link { 
+    text-decoration: none; 
+    color: var(--text-secondary); 
+    font-size: 14px; 
+    display: flex; 
+    align-items: center; 
+    gap: 6px; 
+}
+
+.back-link:hover { color: var(--accent-primary); }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+
+.breadcrumb { 
+    font-size: 13px; 
+    color: var(--text-secondary); 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+    margin-bottom: 8px; 
+}
+
+.breadcrumb a { color: var(--accent-primary); text-decoration: none; }
+
+.page-header { 
+    margin-bottom: 32px; 
+    border-bottom: 1px solid var(--border-light); 
+    padding-bottom: 24px; 
+}
+
+.page-header h1 { font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+
+.page-header p { color: var(--text-secondary); font-size: 15px; }

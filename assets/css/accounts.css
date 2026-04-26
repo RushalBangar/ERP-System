@@ -1,0 +1,32 @@
+/* Accounts Specific Styles */
+/* Stats */
+.stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 32px; }
+.stat-card { background: var(--bg-surface); padding: 20px; border-radius: 8px; border: 1px solid var(--border-light); box-shadow: var(--shadow-sm); }
+.stat-label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-tertiary); display: block; margin-bottom: 8px; }
+.stat-value { font-size: 26px; font-weight: 700; }
+.stat-value.danger { color: #DC2626; }
+.stat-value.success { color: #059669; }
+
+/* Transaction table */
+.section-title { font-size: 18px; font-weight: 600; margin-bottom: 16px; }
+.table-wrapper { background: var(--bg-surface); border: 1px solid var(--border-light); border-radius: 8px; overflow: hidden; box-shadow: var(--shadow-sm); }
+table { width: 100%; border-collapse: collapse; }
+thead th { background: var(--bg-base); padding: 12px 20px; text-align: left; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-tertiary); border-bottom: 1px solid var(--border-light); }
+tbody td { padding: 14px 20px; font-size: 14px; border-bottom: 1px solid var(--border-light); }
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover { background: var(--bg-hover); }
+
+.type-invoice { color: #DC2626; font-weight: 600; }
+.type-payment { color: #059669; font-weight: 600; }
+.status-paid { background: #ECFDF5; color: #059669; padding: 3px 10px; border-radius: 4px; font-size: 12px; font-weight: 700; }
+.status-pending { background: #FEF2F2; color: #DC2626; padding: 3px 10px; border-radius: 4px; font-size: 12px; font-weight: 700; }
+.dark-mode .status-paid { background: #022c22; }
+.dark-mode .status-pending { background: #450a0a; }
+
+.loading-state { text-align: center; padding: 80px 20px; color: var(--text-secondary); }
+.loading-state .spinner { width: 32px; height: 32px; border: 3px solid var(--border-light); border-top-color: var(--accent-primary); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 768px) {
+    thead th:nth-child(4), tbody td:nth-child(4) { display: none; }
+}

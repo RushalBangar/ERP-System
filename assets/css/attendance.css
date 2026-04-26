@@ -1,0 +1,36 @@
+/* Attendance Specific Styles */
+/* Overall Stat Cards */
+.stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 32px; }
+.stat-card {
+    background: var(--bg-surface); padding: 20px; border-radius: 8px; border: 1px solid var(--border-light);
+    box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 8px;
+}
+.stat-label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-tertiary); }
+.stat-value { font-size: 30px; font-weight: 700; }
+.stat-value.good { color: #059669; }
+.stat-value.bad { color: #DC2626; }
+.stat-value.warn { color: #D97706; }
+.stat-note { font-size: 12px; color: var(--text-tertiary); }
+
+/* Alert Banner */
+.alert-banner { padding: 14px 20px; border-radius: 8px; margin-bottom: 24px; font-size: 14px; font-weight: 500; display: flex; align-items: center; gap: 10px; }
+.alert-danger { background: #FEF2F2; color: #DC2626; border: 1px solid #FECACA; }
+.alert-success { background: #ECFDF5; color: #059669; border: 1px solid #A7F3D0; }
+.dark-mode .alert-danger { background: #450a0a; border-color: #7f1d1d; }
+.dark-mode .alert-success { background: #022c22; border-color: #065f46; }
+
+/* Subject Rows */
+.section-title { font-size: 18px; font-weight: 600; margin-bottom: 16px; }
+.subject-table { background: var(--bg-surface); border: 1px solid var(--border-light); border-radius: 8px; overflow: hidden; box-shadow: var(--shadow-sm); }
+.subject-row { padding: 16px 20px; border-bottom: 1px solid var(--border-light); }
+.subject-row:last-child { border-bottom: none; }
+.row-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.row-title { font-weight: 600; font-size: 15px; }
+.row-counts { font-size: 13px; color: var(--text-secondary); }
+.row-pct { font-size: 16px; font-weight: 700; min-width: 50px; text-align: right; }
+.progress-track { height: 8px; background: var(--bg-base); border-radius: 4px; overflow: hidden; }
+.progress-fill { height: 100%; border-radius: 4px; transition: width 1s ease; }
+
+.loading-state { text-align: center; padding: 80px 20px; color: var(--text-secondary); }
+.loading-state .spinner { width: 32px; height: 32px; border: 3px solid var(--border-light); border-top-color: var(--accent-primary); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
+@keyframes spin { to { transform: rotate(360deg); } }
