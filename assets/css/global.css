@@ -16,7 +16,7 @@
     --text-main: #1e293b;
     --text-muted: #64748b;
     --border: #e2e8f0;
-    --header-bg: #E8EAF6;
+    --header-bg: #E8EAF6; /* Light blue tint */
     --sub-header-bg: #ffffff;
     --font-main: 'Roboto', sans-serif;
 }
