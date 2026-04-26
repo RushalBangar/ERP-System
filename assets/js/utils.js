@@ -22,6 +22,9 @@ export function toggleTheme(themeBtn, sunIcon = "☀️", moonIcon = "🌙") {
     const isDark = document.body.classList.contains('dark-mode');
     if (themeBtn) themeBtn.innerHTML = isDark ? sunIcon : moonIcon;
     localStorage.setItem('darkMode', isDark);
+    return isDark;
+}
+
 export function initHeader(userData) {
     if (!userData) return;
     
