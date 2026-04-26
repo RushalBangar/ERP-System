@@ -18,6 +18,12 @@ if (userInitials) {
 }
 if (userAvatarImg) userAvatarImg.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(userData.full_name)}&background=random`;
 
+// Update Metadata Spans
+const prnDisplay = document.getElementById("user-prn-display");
+const courseDisplay = document.getElementById("user-course-display");
+if (prnDisplay) prnDisplay.innerText = `Registration No: ${userData.prn_number || 'N/A'}`;
+if (courseDisplay) courseDisplay.innerText = `${userData.branch || 'N/A'}`;
+
 const modules = [
     { id: "asportal", name: "ASPORTAL", icon: "https://img.icons8.com/fluency/96/checklist.png" },
     { id: "academics", name: "Academics", icon: "https://img.icons8.com/fluency/96/university.png", link: "academics.html" },

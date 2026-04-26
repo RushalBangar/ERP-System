@@ -202,22 +202,19 @@ header.top-bar {
     border-radius: 50%;
 }
 
-.quick-links {
-    display: flex;
-    gap: 16px;
+.user-meta {
     font-size: 13px;
     color: #64748b;
-}
-
-.quick-links a {
-    text-decoration: none;
-    color: inherit;
+    margin-left: 20px;
     font-weight: 500;
-    transition: color 0.2s;
 }
 
-.quick-links a:hover {
-    color: var(--primary);
+@media (max-width: 1024px) {
+    .user-meta { display: none; }
+}
+
+.quick-links {
+    display: none; /* Hiding these to match the "original" dashboard look */
 }
 
 .container { max-width: 1200px; margin: 0 auto; padding: 20px 24px; }
