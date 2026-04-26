@@ -375,10 +375,29 @@ footer {
 
 /* Responsive */
 @media (max-width: 768px) {
-    .header-center, .quick-links, .social-links {
-        display: none;
-    }
     .modules-grid {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        grid-template-columns: repeat(2, 1fr); /* Force 2 columns on mobile */
+        gap: 16px;
+        padding: 8px;
+    }
+    
+    .module-card {
+        aspect-ratio: 1 / 1;
+    }
+
+    .card-title {
+        font-size: 12px;
+    }
+
+    footer {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+        padding: 24px;
+    }
+    
+    .social-links {
+        margin-left: 0;
+        justify-content: center;
     }
 }

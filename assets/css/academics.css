@@ -1,6 +1,10 @@
 /* Academics Specific Styles */
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
 
+@media (max-width: 768px) {
+    .grid { grid-template-columns: 1fr; }
+}
+
 .subject-card {
     background: var(--bg-surface); border-radius: 8px; border: 1px solid var(--border-light);
     box-shadow: var(--shadow-sm); overflow: hidden; transition: box-shadow 0.2s, border-color 0.2s;
