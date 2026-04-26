@@ -9,7 +9,7 @@ if (!userData) {
 }
 
 const modules = [
-    { id: "asportal", name: "ASPORTAL", icon: "https://img.icons8.com/fluency/96/checklist.png" },
+    { id: "asportal", name: "ASPORTAL", icon: "https://img.icons8.com/fluency/96/checklist.png", link: "asportal.html" },
     { id: "academics", name: "Academics", icon: "https://img.icons8.com/fluency/96/university.png", link: "academics.html" },
     { id: "accounts", name: "Accounts", icon: "https://img.icons8.com/fluency/96/calculator.png", link: "accounts.html" },
     { 
