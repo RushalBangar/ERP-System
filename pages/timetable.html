@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimeTable | Matoshri ERP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/timetable.css">
+</head>
+<body>
+    <!-- TOP HEADER -->
+    <header class="top-bar">
+        <div class="header-left">
+            <img src="../assets/img/favicon.png" alt="Logo" class="college-logo" onerror="this.src='https://via.placeholder.com/40'">
+            <span class="college-name">Matoshri College of Engineering & Research Centre, Nashik</span>
+        </div>
+        <div class="header-center">
+            <span style="color: #10b981; font-weight: 700;">4G ⚡ 1.5 Mbps</span>
+        </div>
+        <div class="header-right">
+            <div class="nav-icons">
+                <a href="dashboard.html" class="icon-btn" title="Home"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></a>
+                <a href="dashboard.html" class="icon-btn" title="Dashboard"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg></a>
+            </div>
+            <a href="profile.html" class="user-profile" id="user-initials">--</a>
+        </div>
+    </header>
+
+    <!-- SUB HEADER -->
+    <div class="sub-header">
+        <div class="user-info">
+            <div class="user-avatar">
+                <img src="https://ui-avatars.com/api/?name=User&background=random" alt="Avatar" id="user-avatar-img">
+            </div>
+            <span class="user-name" id="user-display-name">Loading...</span>
+        </div>
+        <div class="user-meta-group">
+            <span class="user-meta" id="user-prn-display">Registration No: --</span>
+            <span class="user-meta" id="user-course-display">Course: --</span>
+        </div>
+    </div>
+
+    <main class="container">
+        <div class="breadcrumb"><a href="dashboard.html">Home</a> <span>/</span> <span>TimeTable</span></div>
+        
+        <div class="page-header">
+            <h1>My TimeTable</h1>
+            <p>Weekly lecture and practical schedule for Academic Year 2025-26.</p>
+        </div>
+
+        <!-- Info Bar -->
+        <div class="timetable-info as-section">
+            <div class="info-item"><strong>Semester:</strong> 2</div>
+            <div class="info-item"><strong>Division:</strong> FY-F</div>
+            <div class="info-item"><strong>Version:</strong> V1</div>
+            <div class="info-item"><strong>W.E.F:</strong> 02-Feb-2026</div>
+        </div>
+
+        <!-- TimeTable Grid -->
+        <div class="timetable-section as-section">
+            <div class="table-wrapper">
+                <table class="timetable-grid">
+                    <thead>
+                        <tr>
+                            <th>Slot</th>
+                            <th>Monday</th>
+                            <th>Tuesday</th>
+                            <th>Wednesday</th>
+                            <th>Thursday</th>
+                            <th>Friday</th>
+                            <th>Saturday</th>
+                        </tr>
+                    </thead>
+                    <tbody id="timetable-body">
+                        <!-- Slots injected by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="timetable-legend">
+            <div class="legend-item"><span class="box theory"></span> Theory</div>
+            <div class="legend-item"><span class="box lab"></span> Practical / Lab</div>
+        </div>
+    </main>
+
+    <script type="module" src="../assets/js/timetable.js"></script>
+</body>
+</html>

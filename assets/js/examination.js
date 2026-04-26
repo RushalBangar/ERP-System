@@ -7,7 +7,7 @@ import { checkAuth, initTheme, initHeader } from './utils.js';
     initTheme();
     initHeader(user);
 
-    // 2. Populate Student Info Bar
+    // 2. Populate Student Info
     document.getElementById('info-prn').innerText = user.prn_number || 'N/A';
     document.getElementById('info-course').innerText = user.branch || 'N/A';
     document.getElementById('info-year').innerText = user.year || 'N/A';
@@ -16,9 +16,7 @@ import { checkAuth, initTheme, initHeader } from './utils.js';
     const results = [
         { srNo: 1, code: "CS401", name: "Artificial Intelligence", type: "Regular", sem: 1, cat1: 24, cat2: 26, ese: 62, total: 88, grade: "O" },
         { srNo: 2, code: "CS402", name: "Machine Learning Lab", type: "Regular", sem: 1, cat1: "--", cat2: "--", ese: 45, total: 90, grade: "O" },
-        { srNo: 3, code: "CS403", name: "Software Engineering", type: "Regular", sem: 1, cat1: 22, cat2: 21, ese: 58, total: 79, grade: "A+" },
-        { srNo: 4, code: "CS404", name: "Project Management", type: "Regular", sem: 1, cat1: 20, cat2: 19, ese: 55, total: 74, grade: "A" },
-        { srNo: 5, code: "HS101", name: "Human Values & Ethics", type: "Regular", sem: 1, cat1: 28, cat2: 27, ese: 65, total: 93, grade: "O" }
+        { srNo: 3, code: "CS403", name: "Software Engineering", type: "Regular", sem: 1, cat1: 22, cat2: 21, ese: 58, total: 79, grade: "A+" }
     ];
 
     const tableBody = document.getElementById('results-body');
@@ -39,4 +37,15 @@ import { checkAuth, initTheme, initHeader } from './utils.js';
         `).join('');
     }
 
+    // 4. Toggle Results Section
+    const viewResultsBtn = document.getElementById('view-results-btn');
+    const resultsSection = document.getElementById('results-section');
+
+    if (viewResultsBtn && resultsSection) {
+        viewResultsBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            resultsSection.style.display = resultsSection.style.display === 'none' ? 'block' : 'none';
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+        });
+    }
 })();
